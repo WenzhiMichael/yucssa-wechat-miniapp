@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="header-section">
+    <view class="user-greeting">
+      <view class="avatar-container">
+        <!-- Default avatar placeholder logic could be here if userInfo.avatarUrl is missing -->
+        <image class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      </view>
+      <view class="greeting-text">
+        <text class="hello">Hello,</text>
+        <text class="username">{{userInfo.nickName}}</text>
+      </view>
+    </view>
+    
+    <view class="search-bar-fake">
+      <icon type="search" size="16" color="#999"/>
+      <text class="search-placeholder">Find student discounts...</text>
+    </view>
+  </view>
+
+  <view class="content-section">
+    <text class="section-title">Explore Categories</text>
+    
+    <view class="category-grid">
+      <block wx:for="{{categories}}" wx:key="id">
+        <view class="category-card" bindtap="onCategoryTap" data-id="{{item.id}}" style="background: linear-gradient(135deg, {{item.color}}15, {{item.color}}30);">
+          <view class="icon-circle" style="background-color: {{item.color}}20;">
+            <image class="category-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          </view>
+          <text class="category-name">{{item.name}}</text>
+          <view class="arrow-icon">></view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

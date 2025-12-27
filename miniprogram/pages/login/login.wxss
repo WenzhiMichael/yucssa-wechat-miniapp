@@ -1,0 +1,106 @@
+/* Global reset like box-sizing if needed */
+page {
+  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 60rpx;
+  box-sizing: border-box;
+}
+
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100rpx;
+}
+
+.logo-circle {
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #C1272D; /* YUCSSA Brand Red */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(193, 39, 45, 0.3);
+}
+
+.logo-text {
+  color: #fff;
+  font-size: 80rpx;
+  font-weight: bold;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.tagline {
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.action-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.welcome-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.sub-text {
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 60rpx;
+}
+
+.login-btn {
+  background-color: #07c160; /* WeChat Green */
+  color: #ffffff;
+  width: 100%;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 16rpx rgba(7, 193, 96, 0.25);
+  border: none;
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.footer {
+  text-align: center;
+  padding-bottom: 20rpx;
+}
+
+.copyright {
+  font-size: 20rpx;
+  color: #ccc;
+}

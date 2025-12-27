@@ -1,0 +1,32 @@
+<view class="container">
+  <block wx:if="{{merchants.length > 0}}">
+    <view class="merchant-list">
+      <block wx:for="{{merchants}}" wx:key="id">
+        <view class="merchant-card" bindtap="onMerchantTap" data-id="{{item.id}}">
+          <view class="card-left">
+            <image class="merchant-logo" src="{{item.logo}}" mode="aspectFill"></image>
+          </view>
+          
+          <view class="card-right">
+            <view class="header-row">
+              <text class="merchant-name">{{item.name}}</text>
+            </view>
+            
+            <text class="merchant-address">{{item.address}}</text>
+            
+            <view class="discount-badge">
+              <text class="discount-text">{{item.discount}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  
+  <block wx:else>
+    <view class="empty-state">
+      <image class="empty-icon" src="/assets/icons/empty.png" />
+      <text>No partners found yet.</text>
+    </view>
+  </block>
+</view>

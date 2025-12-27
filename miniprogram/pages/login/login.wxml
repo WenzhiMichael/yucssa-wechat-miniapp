@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="brand-section">
+    <!-- Replace with YUCSSA Logo if available, using text for now -->
+    <view class="logo-circle">
+      <text class="logo-text">Y</text>
+    </view>
+    <text class="app-name">YUCSSA</text>
+    <text class="tagline">York University Chinese Students' & Scholars' Association</text>
+  </view>
+
+  <view class="action-section">
+    <text class="welcome-text">Welcome Back</text>
+    <text class="sub-text">Please login to verify your membership</text>
+    
+    <button class="login-btn" bindtap="handleLogin">
+      Proceed with WeChat
+    </button>
+  </view>
+  
+  <view class="footer">
+    <text class="copyright">© 2025 YUCSSA. All Rights Reserved.</text>
+  </view>
+</view>

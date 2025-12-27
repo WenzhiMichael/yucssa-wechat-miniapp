@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="banner-section">
+    <!-- Use aspectFill for cover-like effect -->
+    <image class="banner-image" src="{{merchant.banner}}" mode="aspectFill"></image>
+    <view class="banner-overlay"></view>
+    
+    <view class="header-content">
+      <image class="logo" src="{{merchant.logo}}" mode="aspectFill"></image>
+      <text class="name">{{merchant.name}}</text>
+    </view>
+  </view>
+
+  <view class="content-body">
+    <!-- Discount Card -->
+    <view class="card discount-card">
+      <view class="card-header">
+        <text class="card-title">Student Exclusive</text>
+        <view class="verified-badge">Verified</view>
+      </view>
+      <view class="discount-content">
+        <text class="discount-big">{{merchant.discount}}</text>
+        <text class="discount-note">* Please show your YUCSSA membership card/info to redeem.</text>
+      </view>
+    </view>
+
+    <!-- Info Card -->
+    <view class="card info-card">
+      <view class="info-row">
+        <text class="info-label">Address</text>
+        <text class="info-value">{{merchant.address}}</text>
+      </view>
+      <view class="divider"></view>
+      <view class="info-row">
+        <text class="info-label">Phone</text>
+        <text class="info-value">{{merchant.phone}}</text>
+      </view>
+    </view>
+
+    <!-- Description Card -->
+    <view class="card description-card">
+      <text class="card-title">About</text>
+      <text class="description-text">{{merchant.description}}</text>
+    </view>
+  </view>
+</view>
