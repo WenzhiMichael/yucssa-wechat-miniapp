@@ -1,43 +1,91 @@
 # YUCSSA WeChat Mini Program
 
-This is the official WeChat Mini Program for the York University Chinese Students & Scholars Association (YUCSSA). It allows students to browse partner merchants and view exclusive discounts.
+York University Chinese Students and Scholars Association (YUCSSA) official mini program project.
 
-## features
+This version is no longer the old merchant-only MVP. It has been redesigned into a small campus hub centered on:
 
-- **WeChat Login**: Verifies user identity via WeChat OAuth.
-- **Merchant Categories**: Browse merchants by category (Food, Entertainment, Services, etc.).
-- **Merchant Details**: View address, contact info, and specific student discounts.
-- **Student-Friendly UI**: Clean, card-based design tailored for university students.
+- member identity and member code display
+- Apple Wallet card placeholder entry
+- categorized partner merchants and discount details
+- events and student services
+- contact and recruitment information
+
+## Current Features
+
+- `登录页`:
+  - quick demo entry
+  - optional WeChat profile login
+- `首页`:
+  - member code strip
+  - Apple Wallet placeholder strip
+  - upcoming events
+  - bottom category dock for `吃 / 喝 / 玩 / 用`
+- `合作商户页`:
+  - sectioned category layout
+  - 3-column merchant grid
+  - tap merchant to open discount detail
+- `商户详情页`:
+  - discount details
+  - favorite toggle
+  - copy offer
+  - copy address
+  - phone call and map jump
+- `学生服务页`:
+  - announcements, events, support information
+- `联系我们页`:
+  - contact channels
+  - join-us content
+  - official account placeholder area
+- `个人页`:
+  - member profile
+  - favorite merchants
+  - contact shortcuts
 
 ## Tech Stack
 
-- **Platform**: WeChat Mini Program (Native)
-- **Languages**: WXML, WXSS, JavaScript
-- **Data**: Local Mock Data (No backend required for MVP)
-
-## Getting Started
-
-1. Download [WeChat Developer Tools](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html).
-2. Clone this repository.
-3. Open WeChat Developer Tools and import the project folder.
-4. AppID: `wxb4500e80ff513f01` (Test account or replace with your own).
+- Platform: WeChat Mini Program (native)
+- Languages: WXML, WXSS, JavaScript
+- Data: local mock data
+- State: local storage only, no backend required for demo
 
 ## Project Structure
 
+```text
+miniprogram/
+  data/
+    mockData.js              # local categories, merchants, events, contact content
+  pages/
+    login/                   # entry and demo login
+    home/                    # member homepage and bottom category dock
+    merchantList/            # categorized merchant grid
+    merchantDetail/          # merchant discount detail page
+    services/                # student services and events
+    contact/                 # contact us / join us / official account placeholder
+    profile/                 # member profile and favorites
+  utils/
+    memberStore.js           # local profile and favorites state
+  app.js
+  app.json
+  app.wxss
+  sitemap.json
+project.config.json
+project.private.config.json
 ```
-├── miniprogram/
-│   ├── data/           # Mock data source
-│   ├── pages/          # Application pages
-│   │   ├── login/
-│   │   ├── home/
-│   │   ├── merchantList/
-│   │   └── merchantDetail/
-│   ├── app.js          # Global logic
-│   ├── app.json        # Global configuration
-│   └── app.wxss        # Global styles
-└── project.config.json # Tooling configuration
-```
+
+## Getting Started
+
+1. Install [WeChat Developer Tools](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html).
+2. Clone this repository.
+3. Open WeChat Developer Tools and import this folder.
+4. Use the configured AppID in `project.config.json`, or replace it with your own mini program AppID.
+
+## Notes
+
+- The project currently uses mock data only.
+- The Apple Wallet entry on the homepage is a placeholder, not a live integration.
+- The `official-account` area on the contact page is prepared for future公众号 linkage.
+- For public release, you still need real merchant assets, formal content review, and WeChat mini program review/publish flow.
 
 ## License
 
-© 2025 YUCSSA. All Rights Reserved.
+Copyright 2026 YUCSSA. All rights reserved.
