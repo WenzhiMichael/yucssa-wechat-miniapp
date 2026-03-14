@@ -1,45 +1,81 @@
-<view class="container">
-  <view class="banner-section">
-    <!-- Use aspectFill for cover-like effect -->
-    <image class="banner-image" src="{{merchant.banner}}" mode="aspectFill"></image>
-    <view class="banner-overlay"></view>
-    
-    <view class="header-content">
-      <image class="logo" src="{{merchant.logo}}" mode="aspectFill"></image>
-      <text class="name">{{merchant.name}}</text>
+<view wx:if="{{merchant}}" class="page-shell detail-page">
+  <view class="detail-hero panel">
+    <view class="detail-badge" style="background: {{merchant.surface}}; color: {{merchant.accent}};">
+      {{merchant.initials}}
+    </view>
+
+    <text class="detail-name">{{merchant.name}}</text>
+    <text class="detail-meta">{{merchant.area}} · {{merchant.hours}}</text>
+    <text class="detail-description">{{merchant.description}}</text>
+
+    <view class="detail-actions">
+      <button class="detail-action primary-action" bindtap="handleToggleFavorite">
+        {{isFavorite ? '取消收藏' : '加入收藏'}}
+      </button>
+      <button class="detail-action" bindtap="copyOffer">复制优惠</button>
+      <button class="detail-action" bindtap="openMap">打开地图</button>
     </view>
   </view>
 
-  <view class="content-body">
-    <!-- Discount Card -->
-    <view class="card discount-card">
-      <view class="card-header">
-        <text class="card-title">Student Exclusive</text>
-        <view class="verified-badge">Verified</view>
-      </view>
-      <view class="discount-content">
-        <text class="discount-big">{{merchant.discount}}</text>
-        <text class="discount-note">* Please show your YUCSSA membership card/info to redeem.</text>
-      </view>
-    </view>
+  <view class="offer-card panel">
+    <text class="offer-label">当前学生福利</text>
+    <text class="offer-title">{{merchant.offerTitle}}</text>
+    <text class="offer-copy">{{merchant.offerDetails}}</text>
+  </view>
 
-    <!-- Info Card -->
-    <view class="card info-card">
-      <view class="info-row">
-        <text class="info-label">Address</text>
-        <text class="info-value">{{merchant.address}}</text>
-      </view>
-      <view class="divider"></view>
-      <view class="info-row">
-        <text class="info-label">Phone</text>
-        <text class="info-value">{{merchant.phone}}</text>
-      </view>
+  <view class="info-card panel">
+    <view class="info-row">
+      <text class="info-label">地址</text>
+      <text class="info-value">{{merchant.address}}</text>
     </view>
+    <view class="info-divider"></view>
+    <view class="info-row">
+      <text class="info-label">电话</text>
+      <button class="info-link" bindtap="callMerchant">{{merchant.phone}}</button>
+    </view>
+    <view class="info-divider"></view>
+    <view class="info-row">
+      <text class="info-label">操作</text>
+      <button class="info-link" bindtap="copyAddress">复制地址</button>
+    </view>
+  </view>
 
-    <!-- Description Card -->
-    <view class="card description-card">
-      <text class="card-title">About</text>
-      <text class="description-text">{{merchant.description}}</text>
+  <view class="steps-card panel">
+    <text class="steps-title">领取方式</text>
+    <block wx:for="{{merchant.redemptionSteps}}" wx:key="*this">
+      <view class="step-row">
+        <text class="step-index">0{{index + 1}}</text>
+        <text class="step-copy">{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="tag-card panel">
+    <text class="steps-title">标签和体验感</text>
+    <view class="tag-group">
+      <block wx:for="{{merchant.tags}}" wx:key="*this">
+        <text class="detail-tag">{{item}}</text>
+      </block>
+      <block wx:for="{{merchant.perks}}" wx:key="*this">
+        <text class="detail-tag detail-tag-secondary">{{item}}</text>
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{relatedMerchants.length}}" class="related-section">
+    <text class="section-heading">同类推荐</text>
+    <view class="related-list">
+      <block wx:for="{{relatedMerchants}}" wx:key="id">
+        <button class="related-card panel" bindtap="openMerchant" data-id="{{item.id}}">
+          <view class="related-mark" style="background: {{item.surface}}; color: {{item.accent}};">
+            {{item.initials}}
+          </view>
+          <view class="related-copy-block">
+            <text class="related-name">{{item.name}}</text>
+            <text class="related-copy">{{item.offerTitle}}</text>
+          </view>
+        </button>
+      </block>
     </view>
   </view>
 </view>

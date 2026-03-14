@@ -1,106 +1,154 @@
-/* Global reset like box-sizing if needed */
-page {
-  background-color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+.login-page {
+  background:
+    radial-gradient(circle at top left, rgba(196, 81, 53, 0.14), transparent 34%),
+    linear-gradient(180deg, #f2ebe2 0%, #f8f4ee 42%, #f3eee5 100%);
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  padding: 60rpx;
-  box-sizing: border-box;
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  padding: 40rpx;
+  background: linear-gradient(135deg, #73171b 0%, #9c302c 48%, #d1824c 100%);
+  color: #fff8f2;
 }
 
-.brand-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100rpx;
-}
-
-.logo-circle {
-  width: 160rpx;
-  height: 160rpx;
-  background-color: #C1272D; /* YUCSSA Brand Red */
+.hero-glow {
+  position: absolute;
   border-radius: 50%;
+  background: rgba(255, 243, 224, 0.14);
+}
+
+.hero-glow-left {
+  width: 300rpx;
+  height: 300rpx;
+  top: -120rpx;
+  left: -70rpx;
+}
+
+.hero-glow-right {
+  width: 220rpx;
+  height: 220rpx;
+  right: -40rpx;
+  bottom: -60rpx;
+}
+
+.hero-kicker {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 248, 240, 0.16);
+  font-size: 22rpx;
+  letter-spacing: 3rpx;
+}
+
+.hero-title {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 28rpx;
+  font-family: "Times New Roman", "Songti SC", serif;
+  font-size: 60rpx;
+  line-height: 1.18;
+  font-weight: 700;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: rgba(255, 248, 241, 0.88);
+}
+
+.hero-badges {
+  position: relative;
+  z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40rpx;
-  box-shadow: 0 8rpx 20rpx rgba(193, 39, 45, 0.3);
+  flex-wrap: wrap;
+  margin-top: 32rpx;
+  gap: 14rpx;
 }
 
-.logo-text {
-  color: #fff;
-  font-size: 80rpx;
-  font-weight: bold;
-}
-
-.app-name {
-  font-size: 48rpx;
-  font-weight: 800;
-  color: #333;
-  margin-bottom: 16rpx;
-  letter-spacing: 2rpx;
-}
-
-.tagline {
+.hero-badge {
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 248, 240, 0.15);
   font-size: 24rpx;
-  color: #666;
-  text-align: center;
-  max-width: 80%;
-  line-height: 1.4;
+  font-weight: 600;
 }
 
-.action-section {
-  width: 100%;
+.story-list {
+  margin-top: 26rpx;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 60rpx;
+  gap: 18rpx;
 }
 
-.welcome-text {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 12rpx;
-}
-
-.sub-text {
-  font-size: 26rpx;
-  color: #888;
-  margin-bottom: 60rpx;
-}
-
-.login-btn {
-  background-color: #07c160; /* WeChat Green */
-  color: #ffffff;
-  width: 100%;
-  height: 96rpx;
-  border-radius: 48rpx;
-  font-size: 32rpx;
-  font-weight: 600;
+.story-card {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6rpx 16rpx rgba(7, 193, 96, 0.25);
-  border: none;
+  align-items: flex-start;
+  padding: 28rpx;
 }
 
-.login-btn:active {
-  transform: scale(0.98);
-  opacity: 0.9;
+.story-index {
+  min-width: 76rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #8a231f;
 }
 
-.footer {
+.story-copy {
+  flex: 1;
+  margin-left: 18rpx;
+  font-size: 26rpx;
+  line-height: 1.65;
+  color: #44362c;
+}
+
+.action-card {
+  margin-top: 26rpx;
+  padding: 34rpx 28rpx 28rpx;
+}
+
+.action-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #221914;
+}
+
+.action-copy {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 25rpx;
+  line-height: 1.7;
+  color: #70635a;
+}
+
+.primary-button,
+.secondary-button {
+  width: 100%;
+  padding: 28rpx 24rpx;
+  border-radius: 999rpx;
   text-align: center;
-  padding-bottom: 20rpx;
+  font-size: 28rpx;
+  font-weight: 700;
 }
 
-.copyright {
-  font-size: 20rpx;
-  color: #ccc;
+.primary-button {
+  margin-top: 34rpx;
+  background: linear-gradient(135deg, #892025, #cf7148);
+  color: #fffaf5;
+  box-shadow: 0 18rpx 32rpx rgba(143, 29, 32, 0.18);
+}
+
+.secondary-button {
+  margin-top: 18rpx;
+  background: #f7efe5;
+  color: #73171b;
+  border: 1rpx solid rgba(115, 23, 27, 0.12);
 }

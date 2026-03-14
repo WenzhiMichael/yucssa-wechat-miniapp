@@ -1,15 +1,18 @@
-// app.js
+const { getStoredProfile, getFavoriteIds } = require('./utils/memberStore.js')
+
 App({
-    globalData: {
-        userInfo: null,
-        isLoggedIn: false
-    },
-    onLaunch() {
-        // Check local storage for user info
-        const userInfo = wx.getStorageSync('userInfo')
-        if (userInfo) {
-            this.globalData.userInfo = userInfo
-            this.globalData.isLoggedIn = true
-        }
-    }
+  globalData: {
+    isLoggedIn: false,
+    profile: null,
+    favoriteIds: []
+  },
+
+  onLaunch() {
+    const profile = getStoredProfile()
+    const favoriteIds = getFavoriteIds()
+
+    this.globalData.profile = profile
+    this.globalData.isLoggedIn = !!profile
+    this.globalData.favoriteIds = favoriteIds
+  }
 })

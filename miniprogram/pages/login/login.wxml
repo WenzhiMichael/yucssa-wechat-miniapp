@@ -1,23 +1,44 @@
-<view class="container">
-  <view class="brand-section">
-    <!-- Replace with YUCSSA Logo if available, using text for now -->
-    <view class="logo-circle">
-      <text class="logo-text">Y</text>
+<view class="page-shell login-page">
+  <view class="hero-card panel">
+    <view class="hero-glow hero-glow-left"></view>
+    <view class="hero-glow hero-glow-right"></view>
+
+    <text class="hero-kicker">YUCSSA CAMPUS HUB</text>
+    <text class="hero-title">把学生会小程序重新做成真正能服务校园生活的入口。</text>
+    <text class="hero-copy">
+      不再只是一个静态商家目录，而是把活动、福利、服务和会员身份放进同一套体验里。
+    </text>
+
+    <view class="hero-badges">
+      <view class="hero-badge">学生优惠</view>
+      <view class="hero-badge">活动更新</view>
+      <view class="hero-badge">成员服务</view>
     </view>
-    <text class="app-name">YUCSSA</text>
-    <text class="tagline">York University Chinese Students' & Scholars' Association</text>
   </view>
 
-  <view class="action-section">
-    <text class="welcome-text">Welcome Back</text>
-    <text class="sub-text">Please login to verify your membership</text>
-    
-    <button class="login-btn" bindtap="handleLogin">
-      Proceed with WeChat
-    </button>
+  <view class="story-list">
+    <block wx:for="{{onboardingHighlights}}" wx:key="*this">
+      <view class="story-card panel">
+        <text class="story-index">0{{index + 1}}</text>
+        <text class="story-copy">{{item}}</text>
+      </view>
+    </block>
   </view>
-  
-  <view class="footer">
-    <text class="copyright">© 2025 YUCSSA. All Rights Reserved.</text>
+
+  <view class="action-card panel">
+    <text class="action-title">先进入体验，再决定接不接后端。</text>
+    <text class="action-copy">
+      当前版本全部基于本地 mock 数据，可直接在微信开发者工具中演示完整流程。
+    </text>
+
+    <button class="primary-button" bindtap="handleQuickStart">立即进入体验版</button>
+
+    <button
+      wx:if="{{canUseProfile}}"
+      class="secondary-button"
+      bindtap="handleProfileLogin"
+    >
+      使用微信头像昵称
+    </button>
   </view>
 </view>

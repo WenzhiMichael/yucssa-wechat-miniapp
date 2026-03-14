@@ -1,0 +1,53 @@
+<view class="page-shell contact-page">
+  <view class="contact-hero panel">
+    <text class="contact-kicker">CONTACT YUCSSA</text>
+    <text class="contact-title">联系我们，或者直接加入我们。</text>
+    <text class="contact-copy">
+      这里预留给招新、合作、学生咨询，以及公众号引导。后面拿到正式公众号配置后，可以直接接进来。
+    </text>
+  </view>
+
+  <view class="contact-section">
+    <text class="section-heading">联系我们</text>
+    <view class="contact-list">
+      <block wx:for="{{supportChannels}}" wx:key="id">
+        <view class="contact-card panel">
+          <view class="contact-copy-block">
+            <text class="contact-label">{{item.label}}</text>
+            <text class="contact-value">{{item.value}}</text>
+            <text class="contact-description">{{item.description}}</text>
+          </view>
+          <button class="contact-button" bindtap="copyValue" data-value="{{item.value}}">复制</button>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="contact-section">
+    <text class="section-heading">加入我们</text>
+    <text class="section-copy">把岗位说明放在这里，用户感兴趣之后再引导到公众号或表单。</text>
+
+    <view class="join-list">
+      <block wx:for="{{joinOpportunities}}" wx:key="id">
+        <view class="join-card panel">
+          <text class="join-title">{{item.title}}</text>
+          <text class="join-description">{{item.description}}</text>
+          <text class="join-meta">{{item.cadence}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="contact-section">
+    <text class="section-heading">公众号入口</text>
+    <text class="section-copy">
+      如果你们的小程序已经和公众号绑定，这里可以直接展示关注入口；如果还没绑定，先保留这块占位。
+    </text>
+
+    <view class="official-card panel">
+      <text class="official-title">公众号关注区</text>
+      <text class="official-copy">后续可用于活动推送、招新推送和报名链接分发。</text>
+      <official-account></official-account>
+    </view>
+  </view>
+</view>

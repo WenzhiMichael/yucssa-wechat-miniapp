@@ -1,58 +1,367 @@
 const categories = [
-    { id: '1', name: 'Restaurants', icon: '/assets/icons/food.png', color: '#FF7F50' },
-    { id: '2', name: 'Bubble Tea', icon: '/assets/icons/tea.png', color: '#87CEFA' },
-    { id: '3', name: 'Entertainment', icon: '/assets/icons/fun.png', color: '#DA70D6' },
-    { id: '4', name: 'Services', icon: '/assets/icons/service.png', color: '#90EE90' }
-];
+  {
+    id: 'food',
+    name: '餐厅',
+    shortName: '吃',
+    subtitle: '正餐、宵夜和聚餐',
+    accent: '#8f1d20',
+    surface: '#fbe9e5'
+  },
+  {
+    id: 'drink',
+    name: '奶茶甜点',
+    shortName: '喝',
+    subtitle: '奶茶、咖啡和甜品',
+    accent: '#b46a23',
+    surface: '#fff1dd'
+  },
+  {
+    id: 'wellness',
+    name: '休闲娱乐',
+    shortName: '玩',
+    subtitle: '运动、休闲和放松',
+    accent: '#1d6a5d',
+    surface: '#e6f5ef'
+  },
+  {
+    id: 'lifestyle',
+    name: '生活服务',
+    shortName: '用',
+    subtitle: '打印、理发和生活服务',
+    accent: '#334a8a',
+    surface: '#eaf0ff'
+  }
+]
 
 const merchants = [
-    {
-        id: '101',
-        categoryId: '1',
-        name: 'Dragon Legend',
-        logo: 'https://via.placeholder.com/150/C1272D/FFFFFF?text=DL',
-        banner: 'https://via.placeholder.com/600x300/333333/FFFFFF?text=Dragon+Legend+Dining',
-        address: '1500 Steeles Ave E, Markham',
-        phone: '(905) 123-4567',
-        description: 'Premier Chinese buffet offering a wide range of authentic dishes including dim sum, seafood, and BBQ.',
-        discount: '10% OFF for YUCSSA members (Cash Only)'
-    },
-    {
-        id: '102',
-        categoryId: '2',
-        name: 'The Alley',
-        logo: 'https://via.placeholder.com/150/000000/FFFFFF?text=Alley',
-        banner: 'https://via.placeholder.com/600x300/CCCCCC/000000?text=The+Alley+Tea',
-        address: '5095 Yonge St, North York',
-        phone: '(647) 987-6543',
-        description: 'Famous for our Brown Sugar Deerioca Series. We serve high-quality tea beverages with aesthetic presentation.',
-        discount: 'Buy 1 Get 1 Free on Select Drinks'
-    },
-    {
-        id: '103',
-        categoryId: '3',
-        name: 'Cineplex VIP',
-        logo: 'https://via.placeholder.com/150/003366/FFFFFF?text=VIP',
-        banner: 'https://via.placeholder.com/600x300/000066/FFFFFF?text=Movie+Experience',
-        address: '1000 Highway 7, Markham',
-        phone: '(905) 555-1212',
-        description: 'Experience movies like never before with VIP service, comfortable seating, and in-seat dining.',
-        discount: 'Student Price: $12.99 on Tuesdays'
-    },
-    {
-        id: '104',
-        categoryId: '4',
-        name: 'Top Barber',
-        logo: 'https://via.placeholder.com/150/663300/FFFFFF?text=Barber',
-        banner: 'https://via.placeholder.com/600x300/332211/FFFFFF?text=Professional+Cuts',
-        address: '200 Main St, Unionville',
-        phone: '(905) 222-3333',
-        description: 'Professional grooming services for men. Haircuts, shaves, and styling.',
-        discount: '15% OFF for first-time visits'
-    }
-];
+  {
+    id: 'm001',
+    categoryId: 'food',
+    name: 'Taste of Hong Kong',
+    initials: 'TH',
+    area: 'North York',
+    address: '4789 Yonge St, North York',
+    phone: '647-555-0183',
+    hours: 'Daily 11:30 - 22:00',
+    accent: '#8f1d20',
+    surface: '#fbe9e5',
+    distance: '距 YorkU 约 23 分钟',
+    offerTitle: '学生套餐 $12.90',
+    offerDetails: '出示有效 YUCSSA 会员码，可享主食套餐加港式奶茶优惠。',
+    description: '通勤友好的港式快餐店，适合课间快速解决午饭或晚饭。',
+    tags: ['宵夜', '快餐', 'North York'],
+    redemptionSteps: [
+      'Open your YUCSSA member card before ordering.',
+      'Show the cashier the card or member code.',
+      'Offer is valid Monday to Thursday for dine-in or takeout.'
+    ],
+    perks: ['适合聚餐', '可打包', '工作日优惠'],
+    latitude: 43.76157,
+    longitude: -79.41112
+  },
+  {
+    id: 'm002',
+    categoryId: 'drink',
+    name: 'Snowday Tea Bar',
+    initials: 'ST',
+    area: 'Finch',
+    address: '5460 Yonge St, North York',
+    phone: '647-555-0264',
+    hours: 'Daily 12:00 - 23:00',
+    accent: '#b46a23',
+    surface: '#fff1dd',
+    distance: '距 YorkU 约 26 分钟',
+    offerTitle: '招牌奶茶买一送一',
+    offerDetails: '每晚 6 点后，同单两杯中杯招牌饮品可享买一送一。',
+    description: '适合自习和聊天的奶茶店，晚间人流稳定，甜品选择也比较多。',
+    tags: ['甜品', '自习', '晚间优惠'],
+    redemptionSteps: [
+      'Mention the YUCSSA evening offer when ordering.',
+      'Present your member card at payment.',
+      'Offer is limited to one redemption per member each day.'
+    ],
+    perks: ['安静座位', '营业较晚', '甜品饮品'],
+    latitude: 43.77791,
+    longitude: -79.41465
+  },
+  {
+    id: 'm003',
+    categoryId: 'wellness',
+    name: 'Motion Fit Studio',
+    initials: 'MF',
+    area: 'Vaughan',
+    address: '7700 Jane St, Vaughan',
+    phone: '905-555-0198',
+    hours: 'Mon - Sat 07:00 - 21:00',
+    accent: '#1d6a5d',
+    surface: '#e6f5ef',
+    distance: '距 YorkU 约 19 分钟',
+    offerTitle: '新人首周课程通票 $18',
+    offerDetails: '包含瑜伽、拉伸和基础力量课程，适合学生首次体验。',
+    description: '小型运动工作室，课程节奏适合学期中安排锻炼和恢复。',
+    tags: ['健身', '放松', '首次体验'],
+    redemptionSteps: [
+      'Book your trial week through the front desk phone number.',
+      'Bring your student ID and YUCSSA member card on the first visit.',
+      'Trial week must start within 14 days of booking.'
+    ],
+    perks: ['新手友好', '更衣空间', '周末课程'],
+    latitude: 43.79044,
+    longitude: -79.52744
+  },
+  {
+    id: 'm004',
+    categoryId: 'lifestyle',
+    name: 'Finch Print Lab',
+    initials: 'FP',
+    area: 'North York',
+    address: '5325 Yonge St, North York',
+    phone: '416-555-0115',
+    hours: 'Mon - Fri 09:00 - 19:00',
+    accent: '#334a8a',
+    surface: '#eaf0ff',
+    distance: '距 YorkU 约 24 分钟',
+    offerTitle: '海报、简历和册子打印 85 折',
+    offerDetails: '适合社团海报、作品集、面试资料和迎新物料打印。',
+    description: '偏实用型的打印店，适合学校作业和社团宣传的日常需求。',
+    tags: ['实用', '社团', '当天取'],
+    redemptionSteps: [
+      'Send files by email or bring them on USB.',
+      'Mention the YUCSSA printing discount before payment.',
+      'Large format printing may require one extra business day.'
+    ],
+    perks: ['当天可取', '简历友好', '批量打印'],
+    latitude: 43.77257,
+    longitude: -79.41433
+  },
+  {
+    id: 'm005',
+    categoryId: 'food',
+    name: 'North Star Hotpot',
+    initials: 'NH',
+    area: 'Markham',
+    address: '8360 Kennedy Rd, Markham',
+    phone: '905-555-0172',
+    hours: 'Daily 12:00 - 23:30',
+    accent: '#7a2028',
+    surface: '#f8e3e2',
+    distance: '距 YorkU 约 38 分钟',
+    offerTitle: '4 人及以上免费升级锅底',
+    offerDetails: '适合社交聚餐、学生会聚会和社团团建。',
+    description: '偏热闹的火锅店，大桌较多，适合多人一起去。',
+    tags: ['聚餐', '社交', '周末'],
+    redemptionSteps: [
+      'Reserve by phone and mention YUCSSA.',
+      'All members in the party should arrive before the table is seated.',
+      'Offer applies to one table per booking.'
+    ],
+    perks: ['大桌位', '夜间聚会', '支持预订'],
+    latitude: 43.85649,
+    longitude: -79.3044
+  },
+  {
+    id: 'm006',
+    categoryId: 'lifestyle',
+    name: 'Maple Cuts Studio',
+    initials: 'MC',
+    area: 'North York',
+    address: '4950 Yonge St, North York',
+    phone: '416-555-0146',
+    hours: 'Tue - Sun 10:00 - 20:00',
+    accent: '#4a3c7d',
+    surface: '#eeebff',
+    distance: '距 YorkU 约 25 分钟',
+    offerTitle: '学生剪发 $22',
+    offerDetails: '含简单造型，工作日可加优惠洗发服务。',
+    description: '预约效率高，适合课间、面试前或活动前快速整理形象。',
+    tags: ['理发', '面试准备', '工作日'],
+    redemptionSteps: [
+      'Book through the phone number and mention the student rate.',
+      'Arrive with your member code ready at check-in.',
+      'Weekday wash add-on depends on slot availability.'
+    ],
+    perks: ['预约快', '学生价', '利落造型'],
+    latitude: 43.76218,
+    longitude: -79.41144
+  }
+]
+
+const announcements = [
+  {
+    id: 'a001',
+    label: 'New',
+    title: 'Spring mixer registration is live',
+    summary: 'Seats are capped this term, so students who RSVP in-app get first access to the queue.',
+    cta: 'See event plan'
+  },
+  {
+    id: 'a002',
+    label: 'Guide',
+    title: 'Tax clinic sign-up opens next week',
+    summary: 'Volunteer slots will cover filing basics, CRA setup, and the documents international students usually need.',
+    cta: 'Prepare documents'
+  },
+  {
+    id: 'a003',
+    label: 'Partner',
+    title: 'Three new North York merchant partners joined',
+    summary: 'The latest drop adds quicker weekday food, practical printing, and a new haircut offer close to Line 1.',
+    cta: 'Browse deals'
+  }
+]
+
+const events = [
+  {
+    id: 'e001',
+    month: 'MAR',
+    day: '28',
+    title: '春季联谊夜',
+    time: '6:30 PM',
+    location: 'YorkU Student Centre',
+    status: '报名中',
+    note: '轻社交、破冰和社团交流桌同步进行。'
+  },
+  {
+    id: 'e002',
+    month: 'APR',
+    day: '03',
+    title: '职业 Coffee Chat',
+    time: '1:00 PM',
+    location: 'Second Student Centre',
+    status: '名额有限',
+    note: '校友简历修改和实习问答。'
+  },
+  {
+    id: 'e003',
+    month: 'APR',
+    day: '12',
+    title: '夜市社交局',
+    time: '7:00 PM',
+    location: 'Downtown Markham',
+    status: '即将候补',
+    note: '合作商家联动打卡和小型外出活动。'
+  }
+]
+
+const serviceCards = [
+  {
+    id: 's001',
+    name: 'New Student Support',
+    blurb: 'Housing, phone plans, banking, SIM setup, and first-month essentials in one checklist.',
+    availability: 'Always available',
+    owner: 'Community team'
+  },
+  {
+    id: 's002',
+    name: 'Club Collaboration Desk',
+    blurb: 'Poster review, co-hosted event planning, and sponsor introduction support for campus orgs.',
+    availability: 'Weekly office hours',
+    owner: 'Executive board'
+  },
+  {
+    id: 's003',
+    name: 'Volunteer Pathway',
+    blurb: 'Short-term shifts and semester-long roles for events, media, and operations.',
+    availability: 'Recruiting now',
+    owner: 'Volunteer team'
+  }
+]
+
+const supportChannels = [
+  {
+    id: 'c001',
+    label: 'General email',
+    value: 'yucssa@yorku.ca',
+    description: 'For formal questions, sponsor contact, and partnership requests.'
+  },
+  {
+    id: 'c002',
+    label: 'Instagram',
+    value: '@yucssa',
+    description: 'Fastest place to catch posters, event drops, and campaign updates.'
+  },
+  {
+    id: 'c003',
+    label: 'WeChat support',
+    value: 'YUCSSA-Support',
+    description: 'Daily peer help for transit, settling in, and activity questions.'
+  },
+  {
+    id: 'c004',
+    label: 'Official account',
+    value: 'YUCSSA-Official',
+    description: 'Use this for event pushes, recruitment updates, and public announcements.'
+  }
+]
+
+const quickActions = [
+  {
+    id: 'q001',
+    title: 'Partner Deals',
+    subtitle: 'Verified student-only perks',
+    route: '/pages/merchantList/merchantList'
+  },
+  {
+    id: 'q002',
+    title: 'Events & Services',
+    subtitle: 'What the student association is running',
+    route: '/pages/services/services'
+  },
+  {
+    id: 'q003',
+    title: 'Member Card',
+    subtitle: 'Open your profile and code',
+    route: '/pages/profile/profile'
+  },
+  {
+    id: 'q004',
+    title: 'Saved Offers',
+    subtitle: 'Jump back into favorites',
+    route: '/pages/merchantList/merchantList?view=favorites'
+  },
+  {
+    id: 'q005',
+    title: '联系我们',
+    subtitle: '咨询或加入团队',
+    route: '/pages/contact/contact'
+  }
+]
+
+const joinOpportunities = [
+  {
+    id: 'j001',
+    title: 'Media & Design',
+    description: 'Make posters, shoot event content, and shape how the student association looks online.',
+    cadence: 'Flexible weekly tasks'
+  },
+  {
+    id: 'j002',
+    title: 'Events & Operations',
+    description: 'Help run check-in, logistics, and on-site coordination for mixers, socials, and workshops.',
+    cadence: 'Best for active event volunteers'
+  },
+  {
+    id: 'j003',
+    title: 'Partnership & Outreach',
+    description: 'Reach merchants, campus clubs, and alumni contacts to expand the YUCSSA network.',
+    cadence: 'Good fit for communicators'
+  }
+]
+
+const onboardingHighlights = [
+  'Campus life, student offers, and support resources in one place',
+  'A warmer, more editorial UI built for association updates instead of a plain merchant list',
+  'Local-only mock data so the app can be demoed immediately without a backend'
+]
 
 module.exports = {
-    categories,
-    merchants
-};
+  announcements,
+  categories,
+  events,
+  merchants,
+  onboardingHighlights,
+  quickActions,
+  joinOpportunities,
+  serviceCards,
+  supportChannels
+}

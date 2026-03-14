@@ -1,0 +1,107 @@
+.contact-page {
+  background:
+    radial-gradient(circle at top left, rgba(61, 77, 92, 0.08), transparent 24%),
+    linear-gradient(180deg, #f3ece3 0%, #f8f4ed 100%);
+}
+
+.contact-hero {
+  padding: 34rpx 28rpx;
+  background: linear-gradient(145deg, #24313c, #41515f 52%, #6a8296 100%);
+}
+
+.contact-kicker {
+  display: inline-block;
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f7f5ef;
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.contact-title {
+  display: block;
+  margin-top: 24rpx;
+  font-family: "Times New Roman", "Songti SC", serif;
+  font-size: 56rpx;
+  line-height: 1.18;
+  color: #f7f5ef;
+}
+
+.contact-copy {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: rgba(247, 245, 239, 0.86);
+}
+
+.contact-section {
+  margin-top: 30rpx;
+}
+
+.contact-list,
+.join-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.contact-card,
+.join-card,
+.official-card {
+  padding: 26rpx;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+}
+
+.contact-copy-block {
+  flex: 1;
+  padding-right: 16rpx;
+}
+
+.contact-label,
+.join-title,
+.official-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.contact-value,
+.join-meta {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #3d4d5c;
+  font-weight: 700;
+}
+
+.contact-description,
+.join-description,
+.official-copy {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #6f6259;
+}
+
+.contact-button {
+  padding: 18rpx 22rpx;
+  border-radius: 999rpx;
+  background: #3d4d5c;
+  color: #f8f4ed;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.official-card {
+  margin-top: 20rpx;
+}

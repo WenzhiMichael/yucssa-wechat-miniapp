@@ -3,12 +3,16 @@
     "pages/login/login",
     "pages/home/home",
     "pages/merchantList/merchantList",
-    "pages/merchantDetail/merchantDetail"
+    "pages/merchantDetail/merchantDetail",
+    "pages/services/services",
+    "pages/contact/contact",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "YUCSSA Discount",
+    "backgroundColor": "#f4efe7",
+    "navigationBarBackgroundColor": "#f4efe7",
+    "navigationBarTitleText": "YUCSSA Hub",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

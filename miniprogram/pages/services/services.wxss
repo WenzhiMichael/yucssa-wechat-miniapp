@@ -1,0 +1,166 @@
+.services-page {
+  background:
+    radial-gradient(circle at top left, rgba(28, 106, 93, 0.08), transparent 24%),
+    linear-gradient(180deg, #f3ece3 0%, #f8f4ed 100%);
+}
+
+.services-hero {
+  padding: 34rpx 28rpx;
+  background: linear-gradient(145deg, #183f38, #275d53 52%, #3d8872 100%);
+}
+
+.services-kicker {
+  display: inline-block;
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8f7f2;
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.services-title {
+  display: block;
+  margin-top: 24rpx;
+  font-family: "Times New Roman", "Songti SC", serif;
+  font-size: 56rpx;
+  line-height: 1.18;
+  color: #f8f7f2;
+}
+
+.services-copy {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: rgba(248, 247, 242, 0.86);
+}
+
+.services-section {
+  margin-top: 30rpx;
+}
+
+.notice-list,
+.timeline-list,
+.channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.notice-card,
+.support-card,
+.timeline-card,
+.channel-card {
+  padding: 26rpx;
+}
+
+.notice-label {
+  display: inline-block;
+  padding: 10rpx 16rpx;
+  border-radius: 999rpx;
+  background: rgba(28, 106, 93, 0.08);
+  color: #1c6a5d;
+  font-size: 21rpx;
+  font-weight: 700;
+}
+
+.notice-title,
+.support-name,
+.timeline-title,
+.channel-label {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 31rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.notice-copy,
+.support-copy,
+.timeline-note,
+.channel-description {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #6f6259;
+}
+
+.timeline-card {
+  display: flex;
+  align-items: flex-start;
+}
+
+.timeline-date {
+  width: 110rpx;
+  padding: 18rpx 10rpx;
+  border-radius: 24rpx;
+  background: #1c6a5d;
+  text-align: center;
+}
+
+.timeline-month,
+.timeline-day {
+  display: block;
+  color: #f8f7f2;
+  font-weight: 700;
+}
+
+.timeline-month {
+  font-size: 22rpx;
+}
+
+.timeline-day {
+  margin-top: 8rpx;
+  font-size: 40rpx;
+}
+
+.timeline-copy-block {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.timeline-meta,
+.support-meta,
+.channel-value {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  color: #7b6d64;
+}
+
+.timeline-status {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: #1c6a5d;
+  font-weight: 700;
+}
+
+.support-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.channel-card {
+  display: flex;
+  align-items: center;
+}
+
+.channel-copy-block {
+  flex: 1;
+  padding-right: 16rpx;
+}
+
+.channel-button {
+  padding: 18rpx 22rpx;
+  border-radius: 999rpx;
+  background: #1c6a5d;
+  color: #f8f7f2;
+  font-size: 22rpx;
+  font-weight: 700;
+}

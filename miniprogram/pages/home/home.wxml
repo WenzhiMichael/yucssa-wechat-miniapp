@@ -1,35 +1,76 @@
-<view class="container">
-  <view class="header-section">
-    <view class="user-greeting">
-      <view class="avatar-container">
-        <!-- Default avatar placeholder logic could be here if userInfo.avatarUrl is missing -->
-        <image class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+<view wx:if="{{profile}}" class="page-shell home-page">
+  <view class="hero-shell">
+    <view class="hero-card panel">
+      <view class="hero-ribbon">YUCSSA Campus Hub</view>
+
+      <view class="hero-top">
+        <view class="hero-copy-block">
+          <text class="hero-title">欢迎回来，{{profile.nickName}}</text>
+          <text class="hero-subtitle">
+            学生会活动、福利入口和会员身份，现在整合成一个更清晰的首页。
+          </text>
+        </view>
+
+        <button class="avatar-button" bindtap="openProfile">
+          <image
+            wx:if="{{profile.avatarUrl}}"
+            class="avatar-image"
+            src="{{profile.avatarUrl}}"
+            mode="aspectFill"
+          ></image>
+          <text wx:else class="avatar-fallback">{{profileInitial}}</text>
+        </button>
       </view>
-      <view class="greeting-text">
-        <text class="hello">Hello,</text>
-        <text class="username">{{userInfo.nickName}}</text>
+
+      <view class="member-strip">
+        <view class="member-block">
+          <text class="member-code">{{profile.memberCode}}</text>
+        </view>
+        <button class="member-button" bindtap="copyMemberCode">复制</button>
       </view>
-    </view>
-    
-    <view class="search-bar-fake">
-      <icon type="search" size="16" color="#999"/>
-      <text class="search-placeholder">Find student discounts...</text>
+
+      <view class="wallet-strip">
+        <view class="wallet-copy-block">
+          <text class="wallet-label">Apple Wallet</text>
+          <text class="wallet-status">{{walletStatusText}}</text>
+        </view>
+        <button class="wallet-button" bindtap="handleWalletPlaceholder">去添加</button>
+      </view>
     </view>
   </view>
 
-  <view class="content-section">
-    <text class="section-title">Explore Categories</text>
-    
-    <view class="category-grid">
-      <block wx:for="{{categories}}" wx:key="id">
-        <view class="category-card" bindtap="onCategoryTap" data-id="{{item.id}}" style="background: linear-gradient(135deg, {{item.color}}15, {{item.color}}30);">
-          <view class="icon-circle" style="background-color: {{item.color}}20;">
-            <image class="category-icon" src="{{item.icon}}" mode="aspectFit"></image>
+  <view class="event-section">
+    <view class="section-head-row">
+      <text class="section-heading">近期活动</text>
+      <button class="text-link" bindtap="openServices">活动页</button>
+    </view>
+
+    <view class="event-list">
+      <block wx:for="{{events}}" wx:key="id">
+        <view class="event-card panel">
+          <view class="event-date">
+            <text class="event-month">{{item.month}}</text>
+            <text class="event-day">{{item.day}}</text>
           </view>
-          <text class="category-name">{{item.name}}</text>
-          <view class="arrow-icon">></view>
+          <view class="event-copy-block">
+            <text class="event-title">{{item.title}}</text>
+            <text class="event-meta">{{item.time}} · {{item.location}}</text>
+            <text class="event-note">{{item.note}}</text>
+          </view>
+          <text class="event-status">{{item.status}}</text>
         </view>
       </block>
     </view>
   </view>
+</view>
+
+<view wx:if="{{profile}}" class="category-dock">
+  <block wx:for="{{categoryDockItems}}" wx:key="id">
+    <button class="category-dock-item" bindtap="openCategoryDock" data-id="{{item.id}}">
+      <view class="category-dock-badge" style="background: {{item.accent}};">
+        <text class="category-dock-symbol">{{item.name}}</text>
+      </view>
+      <text class="category-dock-title">{{item.label}}</text>
+    </button>
+  </block>
 </view>

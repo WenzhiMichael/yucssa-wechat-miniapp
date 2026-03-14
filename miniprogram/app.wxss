@@ -1,10 +1,68 @@
-/**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
+page {
+  background: #f4efe7;
+  color: #1f1915;
+  font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+view,
+text,
+scroll-view,
+swiper,
+swiper-item,
+button,
+input {
   box-sizing: border-box;
-} 
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  line-height: 1.2;
+}
+
+button::after {
+  border: none;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 32rpx 28rpx 48rpx;
+}
+
+.section-heading {
+  font-size: 42rpx;
+  font-weight: 700;
+  letter-spacing: 0.5rpx;
+}
+
+.section-copy {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #6c6158;
+}
+
+.panel {
+  background: rgba(255, 252, 247, 0.92);
+  border: 1rpx solid rgba(87, 54, 37, 0.08);
+  border-radius: 32rpx;
+  box-shadow: 0 18rpx 48rpx rgba(62, 37, 24, 0.08);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(113, 29, 31, 0.08);
+  color: #711d1f;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.muted {
+  color: #7a6d64;
+}

@@ -1,0 +1,193 @@
+.profile-page {
+  background:
+    radial-gradient(circle at top right, rgba(51, 74, 138, 0.08), transparent 24%),
+    linear-gradient(180deg, #f3ece3 0%, #f8f4ed 100%);
+}
+
+.profile-card {
+  padding: 30rpx 28rpx;
+  background: linear-gradient(145deg, #fff9f2, #f4ecff);
+}
+
+.profile-top {
+  display: flex;
+  align-items: flex-start;
+}
+
+.profile-avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #334a8a, #8367c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.profile-avatar-image {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-avatar-text {
+  color: #fff8f2;
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.profile-copy-block {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.profile-name {
+  display: block;
+  font-family: "Times New Roman", "Songti SC", serif;
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.profile-membership,
+.profile-bio {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #6f6259;
+}
+
+.profile-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.profile-meta-card {
+  padding: 22rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.profile-meta-label {
+  display: block;
+  font-size: 22rpx;
+  color: #7a6e64;
+}
+
+.profile-meta-value {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 27rpx;
+  font-weight: 700;
+  color: #251914;
+}
+
+.profile-main-button {
+  width: 100%;
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: 999rpx;
+  background: #334a8a;
+  color: #fff8f2;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.profile-section {
+  margin-top: 30rpx;
+}
+
+.favorite-list,
+.channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.favorite-card,
+.channel-card {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+}
+
+.favorite-mark {
+  width: 82rpx;
+  height: 82rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.favorite-copy-block,
+.channel-copy-block {
+  flex: 1;
+  margin-left: 16rpx;
+  text-align: left;
+}
+
+.favorite-name,
+.channel-label {
+  display: block;
+  font-size: 29rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.favorite-offer,
+.channel-value,
+.channel-description {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #6f6259;
+}
+
+.channel-button {
+  padding: 18rpx 20rpx;
+  border-radius: 999rpx;
+  background: #334a8a;
+  color: #fff8f2;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.empty-favorites {
+  margin-top: 20rpx;
+  padding: 36rpx 26rpx;
+  text-align: center;
+}
+
+.empty-favorites-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.empty-favorites-copy {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #75685f;
+}
+
+.logout-button {
+  width: 100%;
+  margin-top: 34rpx;
+  padding: 24rpx;
+  border-radius: 999rpx;
+  background: #efe4d8;
+  color: #7d1d20;
+  font-size: 26rpx;
+  font-weight: 700;
+}

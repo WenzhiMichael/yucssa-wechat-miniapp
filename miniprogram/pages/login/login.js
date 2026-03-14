@@ -1,46 +1,54 @@
 const app = getApp()
+const { onboardingHighlights } = require('../../data/mockData.js')
+const { loginWithProfile } = require('../../utils/memberStore.js')
 
 Page({
-    onLoad() {
-        if (app.globalData.isLoggedIn) {
-            wx.switchTab({
-                url: '/pages/home/home',
-                fail: () => {
-                    // If home is not a tab usage, use redirectTo
-                    wx.redirectTo({ url: '/pages/home/home' })
-                }
-            })
-        }
-    },
+  data: {
+    onboardingHighlights,
+    canUseProfile: typeof wx.getUserProfile === 'function'
+  },
 
-    handleLogin() {
-        wx.getUserProfile({
-            desc: 'Display user info',
-            success: (res) => {
-                const userInfo = res.userInfo
-
-                // Mock login process
-                wx.login({
-                    success: (res) => {
-                        // Here you would send res.code to backend to get openId
-                        // For MVP, just save userInfo locally
-                        wx.setStorageSync('userInfo', userInfo)
-                        app.globalData.userInfo = userInfo
-                        app.globalData.isLoggedIn = true
-
-                        wx.redirectTo({
-                            url: '/pages/home/home'
-                        })
-                    }
-                })
-            },
-            fail: (err) => {
-                wx.showToast({
-                    title: 'Login Failed',
-                    icon: 'none'
-                })
-                console.error(err)
-            }
-        })
+  onShow() {
+    if (app.globalData.isLoggedIn) {
+      wx.redirectTo({
+        url: '/pages/home/home'
+      })
     }
+  },
+
+  handleQuickStart() {
+    this.completeLogin({
+      nickName: 'Campus Guest'
+    })
+  },
+
+  handleProfileLogin() {
+    if (typeof wx.getUserProfile !== 'function') {
+      this.handleQuickStart()
+      return
+    }
+
+    wx.getUserProfile({
+      desc: '用于展示会员昵称和头像',
+      success: (res) => {
+        this.completeLogin(res.userInfo || {})
+      },
+      fail: () => {
+        wx.showToast({
+          title: '未获取到头像昵称',
+          icon: 'none'
+        })
+      }
+    })
+  },
+
+  completeLogin(userInfo) {
+    const profile = loginWithProfile(userInfo || {})
+    app.globalData.profile = profile
+    app.globalData.isLoggedIn = true
+
+    wx.redirectTo({
+      url: '/pages/home/home'
+    })
+  }
 })

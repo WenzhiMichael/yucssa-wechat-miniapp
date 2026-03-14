@@ -1,32 +1,33 @@
-<view class="container">
-  <block wx:if="{{merchants.length > 0}}">
-    <view class="merchant-list">
-      <block wx:for="{{merchants}}" wx:key="id">
-        <view class="merchant-card" bindtap="onMerchantTap" data-id="{{item.id}}">
-          <view class="card-left">
-            <image class="merchant-logo" src="{{item.logo}}" mode="aspectFill"></image>
-          </view>
-          
-          <view class="card-right">
-            <view class="header-row">
-              <text class="merchant-name">{{item.name}}</text>
-            </view>
-            
-            <text class="merchant-address">{{item.address}}</text>
-            
-            <view class="discount-badge">
-              <text class="discount-text">{{item.discount}}</text>
-            </view>
-          </view>
+<view class="merchant-page">
+  <block wx:if="{{sections.length}}">
+    <block wx:for="{{sections}}" wx:key="id">
+      <view class="merchant-section">
+        <view class="section-title-row">
+          <view class="section-title-bar"></view>
+          <text class="section-title">{{item.name}}</text>
         </view>
-      </block>
-    </view>
+
+        <view class="merchant-grid">
+          <block wx:for="{{item.merchants}}" wx:for-item="merchant" wx:key="id">
+            <button class="merchant-grid-item" bindtap="openMerchant" data-id="{{merchant.id}}">
+              <view class="merchant-logo-shell">
+                <view
+                  class="merchant-logo-circle"
+                  style="background: {{merchant.surface}}; color: {{merchant.accent}}; border-color: {{merchant.accent}};"
+                >
+                  <text class="merchant-logo-text">{{merchant.initials}}</text>
+                </view>
+              </view>
+              <text class="merchant-grid-name">{{merchant.name}}</text>
+            </button>
+          </block>
+        </view>
+      </view>
+    </block>
   </block>
-  
-  <block wx:else>
-    <view class="empty-state">
-      <image class="empty-icon" src="/assets/icons/empty.png" />
-      <text>No partners found yet.</text>
-    </view>
-  </block>
+
+  <view wx:else class="empty-state">
+    <text class="empty-title">暂时没有合作商户</text>
+    <text class="empty-copy">这个分类还没有录入商户信息，后面可以继续补充。</text>
+  </view>
 </view>

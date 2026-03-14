@@ -1,30 +1,65 @@
-const mockData = require('../../data/mockData.js')
+const { categories, merchants } = require('../../data/mockData.js')
+const { getFavoriteIds } = require('../../utils/memberStore.js')
+
+function decorateMerchant(merchant, favoriteIds) {
+  return Object.assign({}, merchant, {
+    isFavorite: favoriteIds.indexOf(merchant.id) !== -1
+  })
+}
+
+function buildSections(selectedCategoryId, favoriteIds) {
+  const visibleCategories = selectedCategoryId === 'all'
+    ? categories
+    : categories.filter((category) => category.id === selectedCategoryId)
+
+  return visibleCategories
+    .map((category) => {
+      const groupedMerchants = merchants
+        .filter((merchant) => merchant.categoryId === category.id)
+        .map((merchant) => decorateMerchant(merchant, favoriteIds))
+
+      return Object.assign({}, category, {
+        merchants: groupedMerchants
+      })
+    })
+    .filter((section) => section.merchants.length)
+}
 
 Page({
-    data: {
-        merchants: [],
-        categoryName: ''
-    },
+  data: {
+    pageTitle: '合作商户',
+    sections: []
+  },
 
-    onLoad(options) {
-        const categoryId = options.categoryId
-        const category = mockData.categories.find(c => c.id === categoryId)
+  onLoad(options) {
+    this.selectedCategoryId = options.categoryId || 'all'
+    this.refreshPageData()
+  },
 
-        if (category) {
-            wx.setNavigationBarTitle({
-                title: category.name
-            })
-            this.setData({ categoryName: category.name })
-        }
+  onShow() {
+    this.refreshPageData()
+  },
 
-        const filteredMerchants = mockData.merchants.filter(m => m.categoryId === categoryId)
-        this.setData({ merchants: filteredMerchants })
-    },
+  refreshPageData() {
+    const favoriteIds = getFavoriteIds()
+    const sections = buildSections(this.selectedCategoryId, favoriteIds)
+    const currentCategory = categories.find((category) => category.id === this.selectedCategoryId)
+    const pageTitle = currentCategory ? currentCategory.name : '合作商户'
 
-    onMerchantTap(e) {
-        const merchantId = e.currentTarget.dataset.id
-        wx.navigateTo({
-            url: `/pages/merchantDetail/merchantDetail?id=${merchantId}`
-        })
-    }
+    wx.setNavigationBarTitle({
+      title: pageTitle
+    })
+
+    this.setData({
+      pageTitle,
+      sections
+    })
+  },
+
+  openMerchant(e) {
+    const merchantId = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/merchantDetail/merchantDetail?id=${merchantId}`
+    })
+  }
 })

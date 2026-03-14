@@ -1,0 +1,75 @@
+<view class="page-shell services-page">
+  <view class="services-hero panel">
+    <text class="services-kicker">YUCSSA Services</text>
+    <text class="services-title">活动、支持和学生会资源，不应该被拆散。</text>
+    <text class="services-copy">
+      这个页面把原来完全缺失的学生会内容补回来，让小程序不只是“优惠券壳子”。
+    </text>
+  </view>
+
+  <view class="services-section">
+    <text class="section-heading">重点公告</text>
+    <view class="notice-list">
+      <block wx:for="{{announcements}}" wx:key="id">
+        <view class="notice-card panel">
+          <text class="notice-label">{{item.label}}</text>
+          <text class="notice-title">{{item.title}}</text>
+          <text class="notice-copy">{{item.summary}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="services-section">
+    <text class="section-heading">活动排期</text>
+    <view class="timeline-list">
+      <block wx:for="{{events}}" wx:key="id">
+        <view class="timeline-card panel">
+          <view class="timeline-date">
+            <text class="timeline-month">{{item.month}}</text>
+            <text class="timeline-day">{{item.day}}</text>
+          </view>
+          <view class="timeline-copy-block">
+            <text class="timeline-title">{{item.title}}</text>
+            <text class="timeline-meta">{{item.time}} · {{item.location}}</text>
+            <text class="timeline-note">{{item.note}}</text>
+          </view>
+          <text class="timeline-status">{{item.status}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="services-section">
+    <view class="section-head-row">
+      <text class="section-heading">学生支持</text>
+      <button class="text-link" bindtap="openMerchantDirectory">去看福利</button>
+    </view>
+
+    <view class="support-grid">
+      <block wx:for="{{serviceCards}}" wx:key="id">
+        <view class="support-card panel">
+          <text class="support-name">{{item.name}}</text>
+          <text class="support-copy">{{item.blurb}}</text>
+          <text class="support-meta">{{item.owner}} · {{item.availability}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="services-section">
+    <text class="section-heading">联系学生会</text>
+    <view class="channel-list">
+      <block wx:for="{{supportChannels}}" wx:key="id">
+        <view class="channel-card panel">
+          <view class="channel-copy-block">
+            <text class="channel-label">{{item.label}}</text>
+            <text class="channel-value">{{item.value}}</text>
+            <text class="channel-description">{{item.description}}</text>
+          </view>
+          <button class="channel-button" bindtap="copyChannel" data-value="{{item.value}}">复制</button>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
