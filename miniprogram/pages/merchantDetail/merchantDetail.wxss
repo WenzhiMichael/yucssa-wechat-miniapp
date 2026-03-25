@@ -20,6 +20,11 @@
   font-weight: 800;
 }
 
+.detail-badge-image {
+  width: 72rpx;
+  height: 72rpx;
+}
+
 .detail-name {
   display: block;
   margin-top: 24rpx;
@@ -201,6 +206,11 @@
   justify-content: center;
   font-size: 26rpx;
   font-weight: 800;
+}
+
+.related-mark-image {
+  width: 52rpx;
+  height: 52rpx;
 }
 
 .related-copy-block {

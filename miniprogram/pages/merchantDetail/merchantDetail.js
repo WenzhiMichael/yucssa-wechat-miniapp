@@ -1,6 +1,4 @@
-const app = getApp()
 const { merchants } = require('../../data/mockData.js')
-const { isFavorite, toggleFavorite } = require('../../utils/memberStore.js')
 
 function findMerchantById(merchantId) {
   return merchants.find((merchant) => merchant.id === merchantId)
@@ -9,7 +7,6 @@ function findMerchantById(merchantId) {
 Page({
   data: {
     merchant: null,
-    isFavorite: false,
     relatedMerchants: []
   },
 
@@ -43,22 +40,7 @@ Page({
 
     this.setData({
       merchant,
-      isFavorite: isFavorite(this.merchantId),
       relatedMerchants
-    })
-  },
-
-  handleToggleFavorite() {
-    const result = toggleFavorite(this.merchantId)
-    app.globalData.favoriteIds = result.favoriteIds
-
-    this.setData({
-      isFavorite: result.isFavorite
-    })
-
-    wx.showToast({
-      title: result.isFavorite ? '已加入收藏' : '已取消收藏',
-      icon: 'none'
     })
   },
 
@@ -87,12 +69,31 @@ Page({
   },
 
   callMerchant() {
+    if (!this.data.merchant.phone) {
+      wx.showToast({
+        title: '电话待补充',
+        icon: 'none'
+      })
+      return
+    }
+
     wx.makePhoneCall({
       phoneNumber: this.data.merchant.phone
     })
   },
 
   openMap() {
+    if (
+      typeof this.data.merchant.latitude !== 'number' ||
+      typeof this.data.merchant.longitude !== 'number'
+    ) {
+      wx.showToast({
+        title: '地图坐标待补充',
+        icon: 'none'
+      })
+      return
+    }
+
     wx.openLocation({
       latitude: this.data.merchant.latitude,
       longitude: this.data.merchant.longitude,

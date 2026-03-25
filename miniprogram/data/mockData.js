@@ -1,41 +1,35 @@
+const merchantIntake = require('./merchantIntake.js')
+
 const categories = [
   {
     id: 'food',
-    name: '餐厅',
-    shortName: '吃',
-    subtitle: '正餐、宵夜和聚餐',
+    name: '餐饮',
+    shortName: '吃喝',
+    subtitle: '正餐、饮品和甜点',
     accent: '#8f1d20',
     surface: '#fbe9e5'
   },
   {
-    id: 'drink',
-    name: '奶茶甜点',
-    shortName: '喝',
-    subtitle: '奶茶、咖啡和甜品',
-    accent: '#b46a23',
-    surface: '#fff1dd'
-  },
-  {
-    id: 'wellness',
-    name: '休闲娱乐',
-    shortName: '玩',
-    subtitle: '运动、休闲和放松',
+    id: 'auto',
+    name: '汽车服务',
+    shortName: '车',
+    subtitle: '租车、维修和保养',
     accent: '#1d6a5d',
     surface: '#e6f5ef'
   },
   {
     id: 'lifestyle',
     name: '生活服务',
-    shortName: '用',
+    shortName: '生活',
     subtitle: '打印、理发和生活服务',
     accent: '#334a8a',
     surface: '#eaf0ff'
   }
 ]
 
-const merchants = [
+const rawMerchants = [
   {
-    id: 'm001',
+    id: '001',
     categoryId: 'food',
     name: 'Taste of Hong Kong',
     initials: 'TH',
@@ -60,7 +54,7 @@ const merchants = [
     longitude: -79.41112
   },
   {
-    id: 'm002',
+    id: '002',
     categoryId: 'drink',
     name: 'Snowday Tea Bar',
     initials: 'ST',
@@ -85,7 +79,7 @@ const merchants = [
     longitude: -79.41465
   },
   {
-    id: 'm003',
+    id: '003',
     categoryId: 'wellness',
     name: 'Motion Fit Studio',
     initials: 'MF',
@@ -110,7 +104,7 @@ const merchants = [
     longitude: -79.52744
   },
   {
-    id: 'm004',
+    id: '004',
     categoryId: 'lifestyle',
     name: 'Finch Print Lab',
     initials: 'FP',
@@ -135,7 +129,7 @@ const merchants = [
     longitude: -79.41433
   },
   {
-    id: 'm005',
+    id: '005',
     categoryId: 'food',
     name: 'North Star Hotpot',
     initials: 'NH',
@@ -160,7 +154,7 @@ const merchants = [
     longitude: -79.3044
   },
   {
-    id: 'm006',
+    id: '006',
     categoryId: 'lifestyle',
     name: 'Maple Cuts Studio',
     initials: 'MC',
@@ -185,6 +179,101 @@ const merchants = [
     longitude: -79.41144
   }
 ]
+
+function resolveText() {
+  for (let index = 0; index < arguments.length; index += 1) {
+    const value = arguments[index]
+
+    if (typeof value === 'string' && value.trim()) {
+      return value.trim()
+    }
+  }
+
+  return ''
+}
+
+function resolveList(value) {
+  return Array.isArray(value) ? value : []
+}
+
+function buildInitials(name) {
+  if (!name) {
+    return 'YU'
+  }
+
+  const words = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+
+  if (words.length) {
+    return words.map((word) => word.slice(0, 1).toUpperCase()).join('')
+  }
+
+  return name.slice(0, 2).toUpperCase()
+}
+
+function normalizeMerchant(merchant) {
+  const category = categories.find((item) => item.id === merchant.categoryId)
+  const name = resolveText(merchant.name, merchant.title, merchant.merchantName)
+  const offerTitle = resolveText(
+    merchant.promotionTitle,
+    merchant.promotionName,
+    merchant.offerTitle,
+    merchant.promotion
+  )
+  const offerDetails = resolveText(
+    merchant.promotionDetails,
+    merchant.promotionDescription,
+    merchant.promotionCopy,
+    merchant.offerDetails,
+    merchant.promotion
+  )
+  const address = resolveText(
+    merchant.address,
+    merchant.merchantAddress,
+    merchant.businessAddress,
+    merchant.locationAddress
+  )
+
+  return Object.assign({}, merchant, {
+    name,
+    initials: resolveText(merchant.initials) || buildInitials(name),
+    logo: resolveText(merchant.logo, merchant.logoUrl, merchant.image, merchant.imageUrl),
+    accent: resolveText(merchant.accent) || (category ? category.accent : '#334a8a'),
+    surface: resolveText(merchant.surface) || (category ? category.surface : '#eaf0ff'),
+    offerTitle: offerTitle || '学生福利',
+    offerDetails: offerDetails || '待补充',
+    address: address || '待补充',
+    tags: resolveList(merchant.tags),
+    perks: resolveList(merchant.perks),
+    redemptionSteps: resolveList(merchant.redemptionSteps)
+  })
+}
+
+function mergeMerchants(baseMerchants, intakeMerchants) {
+  const merchantMap = {}
+
+  baseMerchants.forEach((merchant) => {
+    merchantMap[merchant.id] = merchant
+  })
+
+  intakeMerchants.forEach((merchant) => {
+    merchantMap[merchant.id] = Object.assign({}, merchantMap[merchant.id], merchant)
+  })
+
+  return Object.keys(merchantMap).map((merchantId) => merchantMap[merchantId])
+}
+
+function isDisplayableMerchant(merchant) {
+  const validCategoryIds = categories.map((category) => category.id)
+
+  return Boolean(merchant.name) && validCategoryIds.indexOf(merchant.categoryId) !== -1
+}
+
+const merchants = mergeMerchants(rawMerchants, merchantIntake)
+  .map(normalizeMerchant)
+  .filter(isDisplayableMerchant)
 
 const announcements = [
   {
@@ -312,12 +401,6 @@ const quickActions = [
     title: 'Member Card',
     subtitle: 'Open your profile and code',
     route: '/pages/profile/profile'
-  },
-  {
-    id: 'q004',
-    title: 'Saved Offers',
-    subtitle: 'Jump back into favorites',
-    route: '/pages/merchantList/merchantList?view=favorites'
   },
   {
     id: 'q005',

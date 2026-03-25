@@ -1,5 +1,4 @@
 const PROFILE_KEY = 'yucssa.profile'
-const FAVORITES_KEY = 'yucssa.favorites'
 
 function createMemberCode() {
   return `YU-${String(Date.now()).slice(-6)}`
@@ -50,42 +49,9 @@ function clearProfile() {
   wx.removeStorageSync(PROFILE_KEY)
 }
 
-function getFavoriteIds() {
-  const favoriteIds = wx.getStorageSync(FAVORITES_KEY)
-  return Array.isArray(favoriteIds) ? favoriteIds : []
-}
-
-function saveFavoriteIds(favoriteIds) {
-  wx.setStorageSync(FAVORITES_KEY, favoriteIds)
-  return favoriteIds
-}
-
-function toggleFavorite(merchantId) {
-  const favoriteIds = getFavoriteIds()
-  const exists = favoriteIds.indexOf(merchantId) !== -1
-
-  const nextFavoriteIds = exists
-    ? favoriteIds.filter((id) => id !== merchantId)
-    : favoriteIds.concat(merchantId)
-
-  saveFavoriteIds(nextFavoriteIds)
-
-  return {
-    favoriteIds: nextFavoriteIds,
-    isFavorite: !exists
-  }
-}
-
-function isFavorite(merchantId) {
-  return getFavoriteIds().indexOf(merchantId) !== -1
-}
-
 module.exports = {
   clearProfile,
-  getFavoriteIds,
   getStoredProfile,
-  isFavorite,
   loginWithProfile,
-  saveProfile,
-  toggleFavorite
+  saveProfile
 }

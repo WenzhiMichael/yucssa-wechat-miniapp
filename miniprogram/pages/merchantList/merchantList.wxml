@@ -15,7 +15,13 @@
                   class="merchant-logo-circle"
                   style="background: {{merchant.surface}}; color: {{merchant.accent}}; border-color: {{merchant.accent}};"
                 >
-                  <text class="merchant-logo-text">{{merchant.initials}}</text>
+                  <image
+                    wx:if="{{merchant.logo}}"
+                    class="merchant-logo-image"
+                    src="{{merchant.logo}}"
+                    mode="aspectFit"
+                  ></image>
+                  <text wx:else class="merchant-logo-text">{{merchant.initials}}</text>
                 </view>
               </view>
               <text class="merchant-grid-name">{{merchant.name}}</text>

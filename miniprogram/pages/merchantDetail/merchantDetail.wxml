@@ -1,18 +1,21 @@
 <view wx:if="{{merchant}}" class="page-shell detail-page">
   <view class="detail-hero panel">
     <view class="detail-badge" style="background: {{merchant.surface}}; color: {{merchant.accent}};">
-      {{merchant.initials}}
+      <image
+        wx:if="{{merchant.logo}}"
+        class="detail-badge-image"
+        src="{{merchant.logo}}"
+        mode="aspectFit"
+      ></image>
+      <text wx:else>{{merchant.initials}}</text>
     </view>
 
     <text class="detail-name">{{merchant.name}}</text>
-    <text class="detail-meta">{{merchant.area}} · {{merchant.hours}}</text>
-    <text class="detail-description">{{merchant.description}}</text>
+    <text wx:if="{{merchant.area || merchant.hours}}" class="detail-meta">{{merchant.area}}{{merchant.area && merchant.hours ? ' · ' : ''}}{{merchant.hours}}</text>
+    <text wx:if="{{merchant.description}}" class="detail-description">{{merchant.description}}</text>
 
     <view class="detail-actions">
-      <button class="detail-action primary-action" bindtap="handleToggleFavorite">
-        {{isFavorite ? '取消收藏' : '加入收藏'}}
-      </button>
-      <button class="detail-action" bindtap="copyOffer">复制优惠</button>
+      <button class="detail-action primary-action" bindtap="copyOffer">复制优惠</button>
       <button class="detail-action" bindtap="openMap">打开地图</button>
     </view>
   </view>
@@ -28,8 +31,8 @@
       <text class="info-label">地址</text>
       <text class="info-value">{{merchant.address}}</text>
     </view>
-    <view class="info-divider"></view>
-    <view class="info-row">
+    <view wx:if="{{merchant.phone}}" class="info-divider"></view>
+    <view wx:if="{{merchant.phone}}" class="info-row">
       <text class="info-label">电话</text>
       <button class="info-link" bindtap="callMerchant">{{merchant.phone}}</button>
     </view>
@@ -40,7 +43,7 @@
     </view>
   </view>
 
-  <view class="steps-card panel">
+  <view wx:if="{{merchant.redemptionSteps.length}}" class="steps-card panel">
     <text class="steps-title">领取方式</text>
     <block wx:for="{{merchant.redemptionSteps}}" wx:key="*this">
       <view class="step-row">
@@ -50,7 +53,7 @@
     </block>
   </view>
 
-  <view class="tag-card panel">
+  <view wx:if="{{merchant.tags.length || merchant.perks.length}}" class="tag-card panel">
     <text class="steps-title">标签和体验感</text>
     <view class="tag-group">
       <block wx:for="{{merchant.tags}}" wx:key="*this">
@@ -68,7 +71,13 @@
       <block wx:for="{{relatedMerchants}}" wx:key="id">
         <button class="related-card panel" bindtap="openMerchant" data-id="{{item.id}}">
           <view class="related-mark" style="background: {{item.surface}}; color: {{item.accent}};">
-            {{item.initials}}
+            <image
+              wx:if="{{item.logo}}"
+              class="related-mark-image"
+              src="{{item.logo}}"
+              mode="aspectFit"
+            ></image>
+            <text wx:else>{{item.initials}}</text>
           </view>
           <view class="related-copy-block">
             <text class="related-name">{{item.name}}</text>

@@ -1,6 +1,6 @@
 const app = getApp()
 const { categories, events } = require('../../data/mockData.js')
-const { getFavoriteIds, getStoredProfile } = require('../../utils/memberStore.js')
+const { getStoredProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
   if (!profile || !profile.nickName) {
@@ -39,10 +39,8 @@ Page({
       return
     }
 
-    const favoriteIds = getFavoriteIds()
     app.globalData.profile = profile
     app.globalData.isLoggedIn = true
-    app.globalData.favoriteIds = favoriteIds
 
     this.setData({
       profile,

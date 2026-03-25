@@ -33,30 +33,6 @@
   </view>
 
   <view class="profile-section">
-    <text class="section-heading">我的收藏</text>
-    <text class="section-copy">把常用福利放在个人页，方便回看和二次到店。</text>
-
-    <view wx:if="{{favoriteMerchants.length}}" class="favorite-list">
-      <block wx:for="{{favoriteMerchants}}" wx:key="id">
-        <button class="favorite-card panel" bindtap="openMerchant" data-id="{{item.id}}">
-          <view class="favorite-mark" style="background: {{item.surface}}; color: {{item.accent}};">
-            {{item.initials}}
-          </view>
-          <view class="favorite-copy-block">
-            <text class="favorite-name">{{item.name}}</text>
-            <text class="favorite-offer">{{item.offerTitle}}</text>
-          </view>
-        </button>
-      </block>
-    </view>
-
-    <view wx:else class="empty-favorites panel">
-      <text class="empty-favorites-title">你还没有收藏任何福利</text>
-      <text class="empty-favorites-copy">去福利目录点几个常用商家，这个区域就会立刻有内容。</text>
-    </view>
-  </view>
-
-  <view class="profile-section">
     <text class="section-heading">联系学生会</text>
     <view class="channel-list">
       <block wx:for="{{supportChannels}}" wx:key="id">

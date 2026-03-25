@@ -100,7 +100,6 @@
   margin-top: 30rpx;
 }
 
-.favorite-list,
 .channel-list {
   display: flex;
   flex-direction: column;
@@ -108,32 +107,18 @@
   margin-top: 20rpx;
 }
 
-.favorite-card,
 .channel-card {
   display: flex;
   align-items: center;
   padding: 24rpx;
 }
 
-.favorite-mark {
-  width: 82rpx;
-  height: 82rpx;
-  border-radius: 24rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26rpx;
-  font-weight: 800;
-}
-
-.favorite-copy-block,
 .channel-copy-block {
   flex: 1;
   margin-left: 16rpx;
   text-align: left;
 }
 
-.favorite-name,
 .channel-label {
   display: block;
   font-size: 29rpx;
@@ -141,7 +126,6 @@
   color: #241813;
 }
 
-.favorite-offer,
 .channel-value,
 .channel-description {
   display: block;
@@ -158,27 +142,6 @@
   color: #fff8f2;
   font-size: 22rpx;
   font-weight: 700;
-}
-
-.empty-favorites {
-  margin-top: 20rpx;
-  padding: 36rpx 26rpx;
-  text-align: center;
-}
-
-.empty-favorites-title {
-  display: block;
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #241813;
-}
-
-.empty-favorites-copy {
-  display: block;
-  margin-top: 12rpx;
-  font-size: 24rpx;
-  line-height: 1.7;
-  color: #75685f;
 }
 
 .logout-button {

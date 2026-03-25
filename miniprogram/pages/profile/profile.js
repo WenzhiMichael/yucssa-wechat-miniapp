@@ -1,6 +1,6 @@
 const app = getApp()
-const { merchants, supportChannels } = require('../../data/mockData.js')
-const { clearProfile, getFavoriteIds, getStoredProfile } = require('../../utils/memberStore.js')
+const { supportChannels } = require('../../data/mockData.js')
+const { clearProfile, getStoredProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
   if (!profile || !profile.nickName) {
@@ -14,7 +14,6 @@ Page({
   data: {
     profile: null,
     profileInitial: 'Y',
-    favoriteMerchants: [],
     supportChannels
   },
 
@@ -36,13 +35,9 @@ Page({
       return
     }
 
-    const favoriteIds = getFavoriteIds()
-    const favoriteMerchants = merchants.filter((merchant) => favoriteIds.indexOf(merchant.id) !== -1)
-
     this.setData({
       profile,
-      profileInitial: buildProfileInitial(profile),
-      favoriteMerchants
+      profileInitial: buildProfileInitial(profile)
     })
   },
 
@@ -55,13 +50,6 @@ Page({
           icon: 'none'
         })
       }
-    })
-  },
-
-  openMerchant(e) {
-    const merchantId = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/merchantDetail/merchantDetail?id=${merchantId}`
     })
   },
 

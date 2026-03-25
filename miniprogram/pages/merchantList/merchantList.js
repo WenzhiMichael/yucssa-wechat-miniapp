@@ -1,13 +1,6 @@
 const { categories, merchants } = require('../../data/mockData.js')
-const { getFavoriteIds } = require('../../utils/memberStore.js')
 
-function decorateMerchant(merchant, favoriteIds) {
-  return Object.assign({}, merchant, {
-    isFavorite: favoriteIds.indexOf(merchant.id) !== -1
-  })
-}
-
-function buildSections(selectedCategoryId, favoriteIds) {
+function buildSections(selectedCategoryId) {
   const visibleCategories = selectedCategoryId === 'all'
     ? categories
     : categories.filter((category) => category.id === selectedCategoryId)
@@ -16,7 +9,6 @@ function buildSections(selectedCategoryId, favoriteIds) {
     .map((category) => {
       const groupedMerchants = merchants
         .filter((merchant) => merchant.categoryId === category.id)
-        .map((merchant) => decorateMerchant(merchant, favoriteIds))
 
       return Object.assign({}, category, {
         merchants: groupedMerchants
@@ -41,8 +33,7 @@ Page({
   },
 
   refreshPageData() {
-    const favoriteIds = getFavoriteIds()
-    const sections = buildSections(this.selectedCategoryId, favoriteIds)
+    const sections = buildSections(this.selectedCategoryId)
     const currentCategory = categories.find((category) => category.id === this.selectedCategoryId)
     const pageTitle = currentCategory ? currentCategory.name : '合作商户'
 
