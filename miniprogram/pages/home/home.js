@@ -1,6 +1,6 @@
 const app = getApp()
 const { categories, events } = require('../../data/mockData.js')
-const { getStoredProfile } = require('../../utils/memberStore.js')
+const { getStoredProfile, isLoggedInProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
   if (!profile || !profile.nickName) {
@@ -30,10 +30,11 @@ Page({
   refreshPageData() {
     const profile = getStoredProfile()
 
-    if (!profile) {
+    if (!isLoggedInProfile(profile)) {
       app.globalData.profile = null
       app.globalData.isLoggedIn = false
-      wx.redirectTo({
+      this.setData({ profile: null, categoryDockItems: [] })
+      wx.reLaunch({
         url: '/pages/login/login'
       })
       return

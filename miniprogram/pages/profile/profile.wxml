@@ -33,6 +33,23 @@
   </view>
 
   <view class="profile-section">
+    <text class="section-heading">York 邮箱验证</text>
+    <view class="verification-card panel">
+      <view class="verification-head">
+        <view class="verification-copy-block">
+          <text class="verification-title">{{verificationTitle}}</text>
+          <text class="verification-copy">{{verificationCopy}}</text>
+        </view>
+        <text
+          class="verification-badge {{profile.verificationStatus === 'verified' ? 'verification-badge-verified' : ''}}"
+        >
+          {{verificationBadgeText}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <view class="profile-section">
     <text class="section-heading">联系学生会</text>
     <view class="channel-list">
       <block wx:for="{{supportChannels}}" wx:key="id">
@@ -48,5 +65,5 @@
     </view>
   </view>
 
-  <button class="logout-button" bindtap="logout">退出体验账号</button>
+  <button class="logout-button" bindtap="logout">退出登录</button>
 </view>

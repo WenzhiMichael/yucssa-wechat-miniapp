@@ -100,6 +100,51 @@
   margin-top: 30rpx;
 }
 
+.verification-card {
+  margin-top: 20rpx;
+  padding: 28rpx 26rpx;
+  background: linear-gradient(145deg, #fffaf4, #eef4ff);
+}
+
+.verification-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 18rpx;
+}
+
+.verification-copy-block {
+  flex: 1;
+}
+
+.verification-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #241813;
+}
+
+.verification-copy {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #6f6259;
+}
+
+.verification-badge {
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(125, 29, 32, 0.1);
+  color: #7d1d20;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.verification-badge-verified {
+  background: rgba(29, 106, 93, 0.12);
+  color: #1d6a5d;
+}
+
 .channel-list {
   display: flex;
   flex-direction: column;

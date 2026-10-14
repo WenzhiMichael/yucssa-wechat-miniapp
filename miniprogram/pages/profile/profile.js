@@ -1,6 +1,6 @@
 const app = getApp()
 const { supportChannels } = require('../../data/mockData.js')
-const { clearProfile, getStoredProfile } = require('../../utils/memberStore.js')
+const { clearProfile, getStoredProfile, isLoggedInProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
   if (!profile || !profile.nickName) {
@@ -10,11 +10,30 @@ function buildProfileInitial(profile) {
   return profile.nickName.slice(0, 1).toUpperCase()
 }
 
+function buildVerificationView(profile) {
+  if (profile.verificationStatus === 'preview') {
+    return {
+      badgeText: '体验中',
+      title: '尚未验证 York 邮箱',
+      copy: '当前只用于查看页面，不会发送邮件或建立微信绑定。'
+    }
+  }
+
+  return {
+    badgeText: '已验证',
+    title: 'York 邮箱已通过验证',
+    copy: `已验证邮箱：${profile.verificationEmail}`
+  }
+}
+
 Page({
   data: {
     profile: null,
     profileInitial: 'Y',
-    supportChannels
+    supportChannels,
+    verificationBadgeText: '未验证',
+    verificationTitle: '',
+    verificationCopy: ''
   },
 
   onLoad() {
@@ -28,8 +47,11 @@ Page({
   refreshPageData() {
     const profile = getStoredProfile()
 
-    if (!profile) {
-      wx.redirectTo({
+    if (!isLoggedInProfile(profile)) {
+      app.globalData.profile = null
+      app.globalData.isLoggedIn = false
+      this.setData({ profile: null })
+      wx.reLaunch({
         url: '/pages/login/login'
       })
       return
@@ -37,7 +59,10 @@ Page({
 
     this.setData({
       profile,
-      profileInitial: buildProfileInitial(profile)
+      profileInitial: buildProfileInitial(profile),
+      verificationBadgeText: buildVerificationView(profile).badgeText,
+      verificationTitle: buildVerificationView(profile).title,
+      verificationCopy: buildVerificationView(profile).copy
     })
   },
 
@@ -69,8 +94,10 @@ Page({
 
   logout() {
     wx.showModal({
-      title: '退出当前体验？',
-      content: '会清空本地会员身份信息，但保留项目代码和页面数据。',
+      title: '退出登录？',
+      content: this.data.profile && this.data.profile.verificationStatus === 'preview'
+        ? '退出后返回登录页，可以重新进入体验模式。'
+        : '退出后需要重新验证 York 邮箱才能查看首页。',
       success: (res) => {
         if (!res.confirm) {
           return
@@ -79,8 +106,9 @@ Page({
         clearProfile()
         app.globalData.profile = null
         app.globalData.isLoggedIn = false
+        this.setData({ profile: null })
 
-        wx.redirectTo({
+        wx.reLaunch({
           url: '/pages/login/login'
         })
       }

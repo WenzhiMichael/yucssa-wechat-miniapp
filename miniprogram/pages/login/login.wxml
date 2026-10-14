@@ -1,44 +1,58 @@
 <view class="page-shell login-page">
-  <view class="hero-card panel">
-    <view class="hero-glow hero-glow-left"></view>
-    <view class="hero-glow hero-glow-right"></view>
-
-    <text class="hero-kicker">YUCSSA CAMPUS HUB</text>
-    <text class="hero-title">把学生会小程序重新做成真正能服务校园生活的入口。</text>
-    <text class="hero-copy">
-      不再只是一个静态商家目录，而是把活动、福利、服务和会员身份放进同一套体验里。
-    </text>
-
-    <view class="hero-badges">
-      <view class="hero-badge">学生优惠</view>
-      <view class="hero-badge">活动更新</view>
-      <view class="hero-badge">成员服务</view>
+  <view class="welcome-card">
+    <view class="brand-mark">YU</view>
+    <text class="brand-name">YUCSSA CAMPUS HUB</text>
+    <view class="welcome-title">
+      <text class="welcome-title-line">你的校园生活，</text>
+      <text class="welcome-title-line">从这里开始。</text>
+    </view>
+    <text class="welcome-copy">登录后查看会员身份、学生福利和校园活动。</text>
+    <view class="welcome-tags">
+      <text class="welcome-tag">会员身份</text>
+      <text class="welcome-tag">商户福利</text>
+      <text class="welcome-tag">校园活动</text>
     </view>
   </view>
 
-  <view class="story-list">
-    <block wx:for="{{onboardingHighlights}}" wx:key="*this">
-      <view class="story-card panel">
-        <text class="story-index">0{{index + 1}}</text>
-        <text class="story-copy">{{item}}</text>
+  <view class="login-card panel">
+    <text class="login-title">登录 YUCSSA</text>
+    <text class="login-copy">使用 York 邮箱验证身份后进入首页。</text>
+    <view class="login-field">
+      <text class="field-label">York 邮箱</text>
+      <input class="login-input" type="text" maxlength="64"
+        placeholder="你的邮箱 @yorku.ca" placeholder-class="input-placeholder"
+        value="{{verificationEmailInput}}" bindinput="handleVerificationEmailInput"
+        disabled="{{isSendingCode || isVerifyingCode}}" />
+      <text class="field-help">支持 @yorku.ca 和 @my.yorku.ca</text>
+    </view>
+    <view class="login-field">
+      <text class="field-label">邮箱验证码</text>
+      <view class="code-row">
+        <input class="login-input code-input" type="number" maxlength="6"
+          placeholder="6 位验证码" placeholder-class="input-placeholder"
+          value="{{verificationCodeInput}}" bindinput="handleVerificationCodeInput"
+          disabled="{{verificationStatus !== 'pending' || isVerifyingCode}}" />
+        <button class="send-code-button" bindtap="sendVerificationCode" loading="{{isSendingCode}}"
+          disabled="{{!verificationEmailInput || isSendingCode || isVerifyingCode}}"
+        >{{verificationStatus === 'pending' ? '重新发送' : '获取验证码'}}</button>
       </view>
-    </block>
+    </view>
+    <view class="login-status">
+      <view class="status-dot {{verificationStatus === 'pending' ? 'status-dot-pending' : ''}}"></view>
+      <text class="status-copy">{{verificationHint}}</text>
+    </view>
+    <button class="login-button" bindtap="submitLogin" loading="{{isVerifyingCode}}"
+      disabled="{{isSendingCode || isVerifyingCode || (verificationStatus !== 'verified' && (verificationStatus !== 'pending' || verificationCodeInput.length !== 6))}}"
+    >{{isVerifyingCode ? '正在登录' : '登录并进入首页'}}</button>
+    <button wx:if="{{canUseProfile}}" class="profile-button" bindtap="handleProfileLogin"
+      disabled="{{isSendingCode || isVerifyingCode}}"
+    >{{hasAuthorizedProfile ? '已使用微信昵称：' + profilePreviewName : '使用微信昵称（可选）'}}</button>
+    <text class="login-note">微信昵称用于会员展示，仍需完成邮箱验证。</text>
+    <view wx:if="{{canPreview}}" class="preview-entry">
+      <button class="preview-entry-button" bindtap="handlePreviewLogin"
+        disabled="{{isSendingCode || isVerifyingCode}}">先体验一下</button>
+      <text class="login-note">体验模式不会发送邮件，也不会验证或绑定学生身份。</text>
+    </view>
   </view>
-
-  <view class="action-card panel">
-    <text class="action-title">先进入体验，再决定接不接后端。</text>
-    <text class="action-copy">
-      当前版本全部基于本地 mock 数据，可直接在微信开发者工具中演示完整流程。
-    </text>
-
-    <button class="primary-button" bindtap="handleQuickStart">立即进入体验版</button>
-
-    <button
-      wx:if="{{canUseProfile}}"
-      class="secondary-button"
-      bindtap="handleProfileLogin"
-    >
-      使用微信头像昵称
-    </button>
-  </view>
+  <text class="login-footer">York University Chinese Students and Scholars Association</text>
 </view>

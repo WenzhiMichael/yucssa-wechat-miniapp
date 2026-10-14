@@ -1,7 +1,7 @@
 <view wx:if="{{profile}}" class="page-shell home-page">
   <view class="hero-shell">
     <view class="hero-card panel">
-      <view class="hero-ribbon">YUCSSA Campus Hub</view>
+      <view class="hero-ribbon">YUCSSA Campus Hub{{profile.verificationStatus === 'preview' ? ' · 体验模式' : ''}}</view>
 
       <view class="hero-top">
         <view class="hero-copy-block">
@@ -24,6 +24,7 @@
 
       <view class="member-strip">
         <view class="member-block">
+          <text wx:if="{{profile.verificationStatus === 'preview'}}" class="member-label">预览示例，不可核销优惠</text>
           <text class="member-code">{{profile.memberCode}}</text>
         </view>
         <button class="member-button" bindtap="copyMemberCode">复制</button>

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start:verify-server": "node server/index.js"
   },
   "keywords": [],
   "author": "",

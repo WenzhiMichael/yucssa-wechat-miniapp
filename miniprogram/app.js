@@ -1,4 +1,4 @@
-const { getStoredProfile } = require('./utils/memberStore.js')
+const { getStoredProfile, isLoggedInProfile } = require('./utils/memberStore.js')
 
 App({
   globalData: {
@@ -9,7 +9,7 @@ App({
   onLaunch() {
     const profile = getStoredProfile()
 
-    this.globalData.profile = profile
-    this.globalData.isLoggedIn = !!profile
+    this.globalData.profile = isLoggedInProfile(profile) ? profile : null
+    this.globalData.isLoggedIn = isLoggedInProfile(profile)
   }
 })

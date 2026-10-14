@@ -1,2 +1,7 @@
 project.private.config.json
 .DS_Store
+.env
+node_modules/
+npm-debug.log*
+server/.verification-store.json
+server/.verification-store.json.*.tmp

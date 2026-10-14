@@ -1,154 +1,190 @@
 .login-page {
-  background:
-    radial-gradient(circle at top left, rgba(196, 81, 53, 0.14), transparent 34%),
-    linear-gradient(180deg, #f2ebe2 0%, #f8f4ee 42%, #f3eee5 100%);
+  padding-top: 24rpx;
+  background: radial-gradient(circle at top left, rgba(196, 81, 53, 0.12), transparent 36%),
+    linear-gradient(180deg, #f2ebe2 0%, #f8f4ee 50%, #f3eee5 100%);
 }
-
-.hero-card {
+.welcome-card {
   position: relative;
   overflow: hidden;
-  padding: 40rpx;
-  background: linear-gradient(135deg, #73171b 0%, #9c302c 48%, #d1824c 100%);
+  padding: 34rpx 36rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #73171b, #9c302c 60%, #b76342);
   color: #fff8f2;
 }
-
-.hero-glow {
+.brand-mark {
   position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 243, 224, 0.14);
-}
-
-.hero-glow-left {
-  width: 300rpx;
-  height: 300rpx;
-  top: -120rpx;
-  left: -70rpx;
-}
-
-.hero-glow-right {
-  width: 220rpx;
-  height: 220rpx;
-  right: -40rpx;
-  bottom: -60rpx;
-}
-
-.hero-kicker {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  padding: 12rpx 18rpx;
-  border-radius: 999rpx;
-  background: rgba(255, 248, 240, 0.16);
-  font-size: 22rpx;
-  letter-spacing: 3rpx;
-}
-
-.hero-title {
-  position: relative;
-  z-index: 1;
-  display: block;
-  margin-top: 28rpx;
-  font-family: "Times New Roman", "Songti SC", serif;
-  font-size: 60rpx;
-  line-height: 1.18;
+  right: 30rpx;
+  top: 28rpx;
+  width: 64rpx;
+  height: 64rpx;
+  border: 1rpx solid rgba(255, 248, 240, 0.36);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
   font-weight: 700;
 }
-
-.hero-copy {
-  position: relative;
-  z-index: 1;
+.brand-name {
   display: block;
-  margin-top: 24rpx;
-  font-size: 28rpx;
-  line-height: 1.7;
-  color: rgba(255, 248, 241, 0.88);
+  padding-right: 80rpx;
+  font-size: 20rpx;
+  letter-spacing: 3rpx;
+  color: rgba(255, 248, 240, 0.85);
 }
-
-.hero-badges {
-  position: relative;
-  z-index: 1;
+.welcome-title {
+  display: block;
+  margin-top: 26rpx;
+  font-family: "Times New Roman", "Songti SC", serif;
+  font-size: 50rpx;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.welcome-copy {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  line-height: 1.65;
+  color: rgba(255, 248, 240, 0.86);
+}
+.welcome-title-line { display: block; }
+.welcome-tags {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 32rpx;
-  gap: 14rpx;
+  gap: 12rpx;
+  margin-top: 24rpx;
 }
-
-.hero-badge {
-  padding: 12rpx 20rpx;
+.welcome-tag {
+  padding: 9rpx 16rpx;
   border-radius: 999rpx;
-  background: rgba(255, 248, 240, 0.15);
-  font-size: 24rpx;
-  font-weight: 600;
+  background: rgba(255, 248, 240, 0.14);
+  font-size: 21rpx;
 }
-
-.story-list {
-  margin-top: 26rpx;
-  display: flex;
-  flex-direction: column;
-  gap: 18rpx;
+.login-card {
+  margin-top: 24rpx;
+  padding: 32rpx 28rpx 26rpx;
 }
-
-.story-card {
-  display: flex;
-  align-items: flex-start;
-  padding: 28rpx;
-}
-
-.story-index {
-  min-width: 76rpx;
-  font-size: 34rpx;
-  font-weight: 700;
-  color: #8a231f;
-}
-
-.story-copy {
-  flex: 1;
-  margin-left: 18rpx;
-  font-size: 26rpx;
-  line-height: 1.65;
-  color: #44362c;
-}
-
-.action-card {
-  margin-top: 26rpx;
-  padding: 34rpx 28rpx 28rpx;
-}
-
-.action-title {
+.login-title {
   display: block;
-  font-size: 36rpx;
+  font-size: 38rpx;
   font-weight: 700;
-  color: #221914;
+  color: #241813;
 }
-
-.action-copy {
+.login-copy {
   display: block;
-  margin-top: 16rpx;
+  margin-top: 10rpx;
   font-size: 25rpx;
-  line-height: 1.7;
+  line-height: 1.6;
   color: #70635a;
 }
-
-.primary-button,
-.secondary-button {
+.login-field { margin-top: 26rpx; }
+.field-label {
+  display: block;
+  margin-bottom: 12rpx;
+  font-size: 25rpx;
+  font-weight: 600;
+  color: #44362c;
+}
+.login-input {
   width: 100%;
-  padding: 28rpx 24rpx;
-  border-radius: 999rpx;
-  text-align: center;
+  height: 92rpx;
+  padding: 0 22rpx;
+  border: 1rpx solid rgba(96, 66, 49, 0.14);
+  border-radius: 20rpx;
+  background: #fffdf9;
+  color: #241813;
+  font-size: 28rpx;
+}
+.input-placeholder { color: #998b80; }
+.field-help {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #7b6f66;
+}
+.code-row { display: flex; align-items: center; gap: 16rpx; }
+.code-input { flex: 1; width: 0; min-width: 0; }
+.send-code-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 190rpx;
+  height: 92rpx;
+  padding: 0 20rpx;
+  border-radius: 20rpx;
+  background: #f1e4d8;
+  color: #73171b;
+  font-size: 25rpx;
+  font-weight: 600;
+}
+.send-code-button[disabled] { color: #998b80; background: #f2ece5; }
+.login-status { display: flex; align-items: flex-start; gap: 12rpx; margin-top: 20rpx; }
+.status-dot {
+  flex-shrink: 0;
+  width: 10rpx;
+  height: 10rpx;
+  margin-top: 13rpx;
+  border-radius: 50%;
+  background: #998b80;
+}
+.status-dot-pending { background: #1d6a5d; }
+.status-copy {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+  font-size: 23rpx;
+  line-height: 1.65;
+  color: #70635a;
+}
+.login-button {
+  width: 100%;
+  padding: 28rpx 20rpx;
+  margin-top: 26rpx;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg, #892025, #b95c3f);
+  color: #fffaf5;
   font-size: 28rpx;
   font-weight: 700;
+  text-align: center;
 }
-
-.primary-button {
-  margin-top: 34rpx;
-  background: linear-gradient(135deg, #892025, #cf7148);
-  color: #fffaf5;
-  box-shadow: 0 18rpx 32rpx rgba(143, 29, 32, 0.18);
-}
-
-.secondary-button {
-  margin-top: 18rpx;
-  background: #f7efe5;
+.login-button[disabled] { background: #e3d8ce; color: #998b80; }
+.profile-button {
+  width: 100%;
+  padding: 22rpx 12rpx;
+  margin-top: 8rpx;
   color: #73171b;
-  border: 1rpx solid rgba(115, 23, 27, 0.12);
+  font-size: 24rpx;
+  text-align: center;
+}
+.login-note {
+  display: block;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: #7b6f66;
+  text-align: center;
+}
+.login-footer {
+  display: block;
+  margin: 26rpx 10rpx 0;
+  font-size: 21rpx;
+  line-height: 1.6;
+  color: #8a7b70;
+  text-align: center;
+}
+.preview-entry {
+  margin-top: 24rpx;
+  padding-top: 22rpx;
+  border-top: 1rpx solid rgba(96, 66, 49, 0.12);
+}
+.preview-entry-button {
+  width: 100%;
+  padding: 24rpx 20rpx;
+  margin-bottom: 12rpx;
+  border-radius: 22rpx;
+  background: #f1e4d8;
+  color: #73171b;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: center;
 }
