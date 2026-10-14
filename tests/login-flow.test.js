@@ -15,6 +15,7 @@ const verifiedProfile = {
 function createHarness({ profile, verificationApi = {}, platform = 'ios', envVersion = 'release' } = {}) {
   const storage = new Map(profile ? [['yucssa.profile', profile]] : [])
   const navigation = []
+  const titles = []
   const messages = []
   const loginCodes = []
   const app = { globalData: { isLoggedIn: false, profile: null } }
@@ -28,6 +29,7 @@ function createHarness({ profile, verificationApi = {}, platform = 'ios', envVer
     removeStorageSync: key => storage.delete(key),
     reLaunch: options => navigation.push({ method: 'reLaunch', ...options }),
     redirectTo: options => navigation.push({ method: 'redirectTo', ...options }),
+    setNavigationBarTitle: ({ title }) => titles.push(title),
     showToast: options => messages.push(options.title),
     showModal: options => options.success({ confirm: true }),
     login: options => {
@@ -58,7 +60,7 @@ function createHarness({ profile, verificationApi = {}, platform = 'ios', envVer
     return module.exports
   }
   return {
-    app, storage, navigation, messages, loginCodes, load,
+    app, storage, navigation, titles, messages, loginCodes, load,
     page(name) {
       load(`pages/${name}/${name}.js`)
       return lastPage
@@ -213,7 +215,7 @@ test('Developer preview opens Home without contacting WeChat or email and remain
   const member = h.page('profile')
   member.onShow()
   assert.equal(member.data.verificationBadgeText, '体验中')
-  assert.equal(member.data.verificationTitle, '尚未验证 York 邮箱')
+  assert.equal(member.data.verificationTitle, '尚未验证约克大学邮箱')
 })
 
 test('Preview entry and stored preview profiles cannot bypass login on devices, trial or release', () => {
@@ -251,4 +253,124 @@ test('Completing real email verification replaces the preview member code and cr
   assert.match(profile.memberCode, /^YU-/)
   assert.equal(profile.verificationEmail, 'student@yorku.ca')
   assert.equal(profile.verificationTicket, 'test-ticket')
+})
+
+test('Language switches persist, refresh returning pages and do not rewrite member identity', () => {
+  const h = createHarness({ profile: { ...verifiedProfile, nickName: 'Campus Guest', memberCode: 'YU-123456' } })
+  const i18n = h.load('utils/i18n.js')
+  const home = h.page('home')
+  home.onShow()
+  assert.equal(home.data.language, 'zh')
+  assert.equal(home.data.ui.common.home, '首页')
+  const storedBefore = JSON.stringify(h.storage.get('yucssa.profile'))
+  home.toggleLanguage()
+  assert.equal(h.storage.get(i18n.LANGUAGE_KEY), 'en')
+  assert.equal(home.data.ui.common.home, 'Home')
+  assert.equal(h.titles.at(-1), 'Home')
+  assert.equal(home.data.categoryDockItems[0].label, 'Dining')
+  assert.equal(home.data.events[0].title, 'Spring Mixer')
+  assert.equal(home.data.featuredMerchants[1].offerTitle, '15% off')
+  assert.equal(home.data.profile.memberCode, 'YU-123456')
+  assert.equal(JSON.stringify(h.storage.get('yucssa.profile')), storedBefore)
+  const contact = h.page('contact')
+  contact.onShow()
+  assert.equal(contact.data.language, 'en')
+  assert.equal(contact.data.joinOpportunities[0].title, 'Media & Design')
+  contact.toggleLanguage()
+  home.onShow()
+  assert.equal(home.data.language, 'zh')
+  assert.equal(home.data.events[0].title, '春季联谊夜')
+  assert.equal(home.data.featuredMerchants[1].offerTitle, '85 折')
+})
+
+test('Switching during pending email verification retains input and localizes hints and failures', async () => {
+  const h = createHarness({ verificationApi: {
+    verifyVerificationCode: async () => { throw new Error('验证码不正确') }
+  } })
+  const login = h.page('login')
+  Object.assign(login.data, { verificationEmailInput: 'student@yorku.ca', verifiedEmail: 'student@yorku.ca', verificationCodeInput: '123456', verificationStatus: 'pending' })
+  login.toggleLanguage()
+  assert.equal(login.data.verificationEmailInput, 'student@yorku.ca')
+  assert.equal(login.data.verificationCodeInput, '123456')
+  assert.equal(login.data.verificationStatus, 'pending')
+  assert.match(login.data.verificationHint, /A code was sent to student@yorku.ca/)
+  assert.equal(h.loginCodes.length, 0)
+  await login.submitLogin()
+  assert.equal(h.messages.at(-1), 'Incorrect verification code')
+  assert.equal(h.storage.has('yucssa.profile'), false)
+  login.toggleLanguage()
+  assert.match(login.data.verificationHint, /验证码已发送到 student@yorku.ca/)
+  assert.equal(login.data.verificationCodeInput, '123456')
+})
+
+test('Category selection and merchant identity survive language changes', () => {
+  const h = createHarness()
+  const directory = h.page('merchantList')
+  directory.onLoad({ categoryId: 'auto' })
+  assert.equal(directory.data.sections[0].id, 'auto')
+  directory.toggleLanguage()
+  assert.equal(directory.data.selectedCategoryId, 'auto')
+  assert.equal(directory.data.pageTitle, 'Auto services')
+  assert.equal(h.titles.at(-1), 'Auto services')
+  assert.equal(directory.data.sections.length, 1)
+  assert.equal(directory.data.sections[0].merchants[0].id, '006')
+  const detail = h.page('merchantDetail')
+  detail.onLoad({ id: '002' })
+  assert.equal(detail.data.merchant.name, 'Goubuli')
+  assert.equal(detail.data.merchant.offerTitle, '15% off')
+  detail.toggleLanguage()
+  assert.equal(detail.data.merchant.id, '002')
+  assert.equal(detail.data.merchant.name, '狗不理')
+  assert.equal(detail.data.merchant.offerTitle, '85 折')
+  assert.equal(h.titles.at(-1), '狗不理')
+  directory.onShow()
+  assert.equal(directory.data.pageTitle, '汽车服务')
+})
+
+test('Both languages cover all interface keys and English content has no Chinese copy', () => {
+  const h = createHarness()
+  const i18n = h.load('utils/i18n.js')
+  function keys(object, prefix = '') {
+    return Object.entries(object).flatMap(([key, value]) => typeof value === 'string' ? [prefix + key] : keys(value, prefix + key + '.')).sort()
+  }
+  assert.deepEqual(keys(i18n.getMessages('zh')), keys(i18n.getMessages('en')))
+  for (const key of keys(i18n.getMessages('en'))) {
+    const value = i18n.t(key, { email: 'student@yorku.ca' }, 'en')
+    assert.ok(value.length > 0, key)
+    assert.doesNotMatch(value, /[\u4e00-\u9fff]/, key)
+  }
+  for (const page of ['home', 'login', 'merchantList', 'merchantDetail', 'services', 'contact', 'profile']) {
+    const wxml = fs.readFileSync(path.join(root, `pages/${page}/${page}.wxml`), 'utf8')
+    for (const match of wxml.matchAll(/ui\.([a-zA-Z]+\.[a-zA-Z0-9]+)/g)) {
+      assert.doesNotThrow(() => i18n.t(match[1], {}, 'zh'))
+      assert.doesNotThrow(() => i18n.t(match[1], {}, 'en'))
+    }
+    assert.match(wxml, /bindtap="toggleLanguage"/)
+  }
+  const data = h.load('data/localizedData.js').getLocalizedData('en')
+  for (const field of ['events', 'announcements', 'serviceCards', 'supportChannels', 'joinOpportunities']) {
+    for (const record of data[field]) for (const [key, value] of Object.entries(record)) {
+      if (typeof value === 'string') assert.doesNotMatch(value, /[\u4e00-\u9fff]/, `${field}.${record.id}.${key}`)
+    }
+  }
+  for (const merchant of data.merchants) {
+    assert.doesNotMatch(merchant.offerTitle + merchant.offerDetails + merchant.name, /[\u4e00-\u9fff]/)
+  }
+})
+
+test('Default profile copy is translated while custom names and credentials are preserved', () => {
+  const h = createHarness()
+  const i18n = h.load('utils/i18n.js')
+  const profile = { ...verifiedProfile, nickName: '张同学', memberCode: 'YU-123456', faculty: 'York University' }
+  const display = i18n.localizeProfile(profile, 'en')
+  assert.equal(display.nickName, '张同学')
+  assert.equal(display.verificationTicket, profile.verificationTicket)
+  assert.equal(display.memberCode, profile.memberCode)
+  assert.equal(i18n.localizeProfile({ nickName: '体验同学' }, 'en').nickName, 'Preview Student')
+  assert.equal(i18n.localizeProfile({ nickName: '校园访客' }, 'en').nickName, 'Campus Guest')
+  i18n.setLanguage('en')
+  assert.equal(i18n.translateError(new Error('该 York 邮箱已绑定其他微信账号')), 'This email is bound to another WeChat account')
+  assert.equal(i18n.translateError(new Error('未预料到的后台错误')), 'Verification service unavailable. Try again later.')
+  i18n.setLanguage('unsupported')
+  assert.equal(i18n.getLanguage(), 'zh')
 })

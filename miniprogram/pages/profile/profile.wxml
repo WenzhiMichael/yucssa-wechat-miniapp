@@ -1,4 +1,5 @@
 <view wx:if="{{profile}}" class="page-shell profile-page">
+  <view class="language-toolbar"><button class="language-switch" bindtap="toggleLanguage" aria-label="{{ui.common.switchLanguage}}">{{language === 'zh' ? 'English' : '中文'}}</button></view>
   <view class="profile-card panel">
     <view class="profile-top">
       <view class="profile-avatar">
@@ -20,20 +21,20 @@
 
     <view class="profile-meta-grid">
       <view class="profile-meta-card">
-        <text class="profile-meta-label">组织</text>
+        <text class="profile-meta-label">{{ui.profile.organization}}</text>
         <text class="profile-meta-value">{{profile.faculty}}</text>
       </view>
       <view class="profile-meta-card">
-        <text class="profile-meta-label">会员码</text>
+        <text class="profile-meta-label">{{ui.profile.code}}</text>
         <text class="profile-meta-value">{{profile.memberCode}}</text>
       </view>
     </view>
 
-    <button class="profile-main-button" bindtap="copyMemberCode">复制会员码</button>
+    <button class="profile-main-button" bindtap="copyMemberCode">{{ui.profile.copyCode}}</button>
   </view>
 
   <view class="profile-section">
-    <text class="section-heading">York 邮箱验证</text>
+    <text class="section-heading">{{ui.profile.verification}}</text>
     <view class="verification-card panel">
       <view class="verification-head">
         <view class="verification-copy-block">
@@ -50,7 +51,7 @@
   </view>
 
   <view class="profile-section">
-    <text class="section-heading">联系学生会</text>
+    <text class="section-heading">{{ui.profile.contact}}</text>
     <view class="channel-list">
       <block wx:for="{{supportChannels}}" wx:key="id">
         <view class="channel-card panel">
@@ -59,11 +60,11 @@
             <text class="channel-value">{{item.value}}</text>
             <text class="channel-description">{{item.description}}</text>
           </view>
-          <button class="channel-button" bindtap="copyChannel" data-value="{{item.value}}">复制</button>
+          <button class="channel-button" bindtap="copyChannel" data-value="{{item.value}}">{{ui.common.copy}}</button>
         </view>
       </block>
     </view>
   </view>
 
-  <button class="logout-button" bindtap="logout">退出登录</button>
+  <button class="logout-button" bindtap="logout">{{ui.profile.logout}}</button>
 </view>

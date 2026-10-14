@@ -1,18 +1,16 @@
 .services-page {
-  background:
-    radial-gradient(circle at top left, rgba(28, 106, 93, 0.08), transparent 24%),
-    linear-gradient(180deg, #f3ece3 0%, #f8f4ed 100%);
+  background: #f7f5f2;
 }
 
 .services-hero {
   padding: 34rpx 28rpx;
-  background: linear-gradient(145deg, #183f38, #275d53 52%, #3d8872 100%);
+  background: linear-gradient(120deg, #66142f, #8c2545);
 }
 
 .services-kicker {
   display: inline-block;
-  padding: 12rpx 18rpx;
-  border-radius: 999rpx;
+  padding: 8rpx 14rpx;
+  border-radius: 12rpx;
   background: rgba(255, 255, 255, 0.12);
   color: #f8f7f2;
   font-size: 22rpx;
@@ -23,8 +21,8 @@
 .services-title {
   display: block;
   margin-top: 24rpx;
-  font-family: "Times New Roman", "Songti SC", serif;
-  font-size: 56rpx;
+  font-family: inherit;
+  font-size: 44rpx;
   line-height: 1.18;
   color: #f8f7f2;
 }
@@ -60,9 +58,9 @@
 .notice-label {
   display: inline-block;
   padding: 10rpx 16rpx;
-  border-radius: 999rpx;
-  background: rgba(28, 106, 93, 0.08);
-  color: #1c6a5d;
+  border-radius: 12rpx;
+  background: #f7edf0;
+  color: #821e3c;
   font-size: 21rpx;
   font-weight: 700;
 }
@@ -73,9 +71,9 @@
 .channel-label {
   display: block;
   margin-top: 18rpx;
-  font-size: 31rpx;
+  font-size: 28rpx;
   font-weight: 700;
-  color: #241813;
+  color: #292326;
 }
 
 .notice-copy,
@@ -86,7 +84,7 @@
   margin-top: 12rpx;
   font-size: 24rpx;
   line-height: 1.7;
-  color: #6f6259;
+  color: #82777c;
 }
 
 .timeline-card {
@@ -98,7 +96,7 @@
   width: 110rpx;
   padding: 18rpx 10rpx;
   border-radius: 24rpx;
-  background: #1c6a5d;
+  background: #821e3c;
   text-align: center;
 }
 
@@ -129,13 +127,13 @@
   display: block;
   margin-top: 10rpx;
   font-size: 23rpx;
-  color: #7b6d64;
+  color: #82777c;
 }
 
 .timeline-status {
   margin-left: 12rpx;
   font-size: 22rpx;
-  color: #1c6a5d;
+  color: #821e3c;
   font-weight: 700;
 }
 
@@ -158,9 +156,20 @@
 
 .channel-button {
   padding: 18rpx 22rpx;
-  border-radius: 999rpx;
-  background: #1c6a5d;
+  border-radius: 12rpx;
+  background: #821e3c;
   color: #f8f7f2;
   font-size: 22rpx;
   font-weight: 700;
 }
+
+.timeline-date { flex-shrink: 0; width: 88rpx; border-radius: 16rpx; background: #f7edf0; }
+.timeline-month, .timeline-day { color: #821e3c; }
+.timeline-copy-block { min-width: 0; }
+.timeline-title { margin-top: 0; }
+.timeline-status { flex-shrink: 0; font-size: 19rpx; padding: 5rpx 8rpx; border-radius: 6rpx; background: #f4eee5; color: #806240; }
+.channel-copy-block { min-width: 0; }
+.channel-value { word-break: break-all; line-height: 1.6; }
+.channel-button { flex-shrink: 0; }
+.timeline-status { flex-shrink: 1; max-width: 136rpx; text-align: center; }
+.timeline-copy-block { flex-basis: 0; }

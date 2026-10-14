@@ -1,27 +1,15 @@
 <view class="page-shell services-page">
+  <view class="language-toolbar"><button class="language-switch" bindtap="toggleLanguage" aria-label="{{ui.common.switchLanguage}}">{{language === 'zh' ? 'English' : '中文'}}</button></view>
   <view class="services-hero panel">
-    <text class="services-kicker">YUCSSA Services</text>
-    <text class="services-title">活动、支持和学生会资源，不应该被拆散。</text>
+    <text class="services-kicker">{{ui.services.kicker}}</text>
+    <text class="services-title">{{ui.services.title}}</text>
     <text class="services-copy">
-      这个页面把原来完全缺失的学生会内容补回来，让小程序不只是“优惠券壳子”。
+      {{ui.services.copy}}
     </text>
   </view>
 
   <view class="services-section">
-    <text class="section-heading">重点公告</text>
-    <view class="notice-list">
-      <block wx:for="{{announcements}}" wx:key="id">
-        <view class="notice-card panel">
-          <text class="notice-label">{{item.label}}</text>
-          <text class="notice-title">{{item.title}}</text>
-          <text class="notice-copy">{{item.summary}}</text>
-        </view>
-      </block>
-    </view>
-  </view>
-
-  <view class="services-section">
-    <text class="section-heading">活动排期</text>
+    <text class="section-heading">{{ui.services.schedule}}</text>
     <view class="timeline-list">
       <block wx:for="{{events}}" wx:key="id">
         <view class="timeline-card panel">
@@ -41,9 +29,22 @@
   </view>
 
   <view class="services-section">
+    <text class="section-heading">{{ui.services.notices}}</text>
+    <view class="notice-list">
+      <block wx:for="{{announcements}}" wx:key="id">
+        <view class="notice-card panel">
+          <text class="notice-label">{{item.label}}</text>
+          <text class="notice-title">{{item.title}}</text>
+          <text class="notice-copy">{{item.summary}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="services-section">
     <view class="section-head-row">
-      <text class="section-heading">学生支持</text>
-      <button class="text-link" bindtap="openMerchantDirectory">去看福利</button>
+      <text class="section-heading">{{ui.services.support}}</text>
+      <button class="text-link" bindtap="openMerchantDirectory">{{ui.services.benefits}}</button>
     </view>
 
     <view class="support-grid">
@@ -58,7 +59,7 @@
   </view>
 
   <view class="services-section">
-    <text class="section-heading">联系学生会</text>
+    <text class="section-heading">{{ui.services.contact}}</text>
     <view class="channel-list">
       <block wx:for="{{supportChannels}}" wx:key="id">
         <view class="channel-card panel">
@@ -67,7 +68,7 @@
             <text class="channel-value">{{item.value}}</text>
             <text class="channel-description">{{item.description}}</text>
           </view>
-          <button class="channel-button" bindtap="copyChannel" data-value="{{item.value}}">复制</button>
+          <button class="channel-button" bindtap="copyChannel" data-value="{{item.value}}">{{ui.common.copy}}</button>
         </view>
       </block>
     </view>

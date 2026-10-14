@@ -1,3 +1,4 @@
+const { localizedPage, t, translateError, localizeProfile } = require('../../utils/i18n.js')
 const app = getApp()
 const {
   canUseDevelopmentPreview,
@@ -19,29 +20,34 @@ function getWechatLoginCode() {
           return
         }
 
-        reject(new Error('未获取到微信登录 code'))
+        reject(new Error(t('message.loginCodeMissing')))
       },
       fail: () => {
-        reject(new Error('微信登录校验失败'))
+        reject(new Error(t('message.wechatFailed')))
       }
     })
   })
 }
 
-Page({
+Page(localizedPage('login', {
   data: {
     canPreview: canUseDevelopmentPreview(),
     canUseProfile: typeof wx.getUserProfile === 'function',
     verificationEmailInput: '',
     verificationCodeInput: '',
     verificationStatus: 'unverified',
-    verificationHint: '登录后即可查看首页、会员身份和学生福利。',
+    verificationHint: t('login.initialHint'),
     verifiedEmail: '',
     verificationTicket: '',
     profilePreviewName: 'YUCSSA Member',
     hasAuthorizedProfile: false,
     isSendingCode: false,
     isVerifyingCode: false
+  },
+
+  refreshVerificationHint() {
+    const key = this.data.verificationStatus === 'pending' ? 'pendingHint' : this.data.verificationStatus === 'verified' ? 'successHint' : 'initialHint'
+    this.setData({ verificationHint: t(`login.${key}`, { email: this.data.verifiedEmail }), profilePreviewName: localizeProfile({ nickName: this.data.profilePreviewName }).nickName })
   },
 
   onShow() {
@@ -68,7 +74,7 @@ Page({
       app.globalData.isLoggedIn = true
       wx.reLaunch({ url: '/pages/home/home' })
     } catch (error) {
-      wx.showToast({ title: error.message, icon: 'none' })
+      wx.showToast({ title: translateError(error), icon: 'none' })
     }
   },
 
@@ -83,35 +89,35 @@ Page({
       verificationStatus: 'unverified',
       verifiedEmail: '',
       verificationTicket: '',
-      verificationHint: '登录后即可查看首页、会员身份和学生福利。'
+      verificationHint: t('login.initialHint')
     })
   },
 
   handleProfileLogin() {
     if (typeof wx.getUserProfile !== 'function') {
       wx.showToast({
-        title: '当前环境不支持头像昵称授权',
+        title: t('message.profileUnsupported'),
         icon: 'none'
       })
       return
     }
 
     wx.getUserProfile({
-      desc: '用于展示会员昵称和头像',
+      desc: t('message.profilePurpose'),
       success: (res) => {
         this.userInfoDraft = res.userInfo || {}
         this.setData({
           hasAuthorizedProfile: true,
-          profilePreviewName: (res.userInfo && res.userInfo.nickName) || 'Campus Guest'
+          profilePreviewName: (res.userInfo && res.userInfo.nickName) || t('profile.guestName')
         })
         wx.showToast({
-          title: '已获取头像昵称',
+          title: t('message.profileSuccess'),
           icon: 'none'
         })
       },
       fail: () => {
         wx.showToast({
-          title: '未获取到头像昵称',
+          title: t('message.profileFailed'),
           icon: 'none'
         })
       }
@@ -127,7 +133,7 @@ Page({
 
     if (!isYorkEmail(email)) {
       wx.showToast({
-        title: '请输入 York 邮箱',
+        title: t('message.yorkEmail'),
         icon: 'none'
       })
       return
@@ -144,16 +150,16 @@ Page({
       this.setData({
         verificationStatus: 'pending',
         verifiedEmail: email,
-        verificationHint: `验证码已发送到 ${email}，请检查邮箱并输入 6 位验证码。`
+        verificationHint: t('login.pendingHint', { email })
       })
 
       wx.showToast({
-        title: '验证码已发送',
+        title: t('message.codeSent'),
         icon: 'none'
       })
     } catch (error) {
       wx.showToast({
-        title: error.message || '验证码发送失败',
+        title: translateError(error, 'sendFailed'),
         icon: 'none'
       })
     } finally {
@@ -184,7 +190,7 @@ Page({
     }
 
     if (this.data.verificationStatus !== 'pending') {
-      wx.showToast({ title: '请先获取邮箱验证码', icon: 'none' })
+      wx.showToast({ title: t('message.sendFirst'), icon: 'none' })
       return
     }
 
@@ -192,7 +198,7 @@ Page({
 
     if (!/^\d{6}$/.test(code)) {
       wx.showToast({
-        title: '请输入 6 位验证码',
+        title: t('message.codeLength'),
         icon: 'none'
       })
       return
@@ -215,20 +221,20 @@ Page({
           verificationTicket: result.verificationTicket
         })
       ) {
-        throw new Error('登录验证未完成，请重新获取验证码')
+        throw new Error(t('message.incomplete'))
       }
 
       this.setData({
         verificationStatus: 'verified',
         verificationCodeInput: '',
         verificationTicket: result.verificationTicket,
-        verificationHint: '验证成功，正在进入首页。'
+        verificationHint: t('login.successHint')
       })
 
       this.completeLogin()
     } catch (error) {
       wx.showToast({
-        title: error.message || '验证失败',
+        title: translateError(error, 'verifyFailed'),
         icon: 'none'
       })
     } finally {
@@ -245,7 +251,7 @@ Page({
       verificationTicket: this.data.verificationTicket
     })) {
       wx.showToast({
-        title: '请先完成 York 邮箱验证',
+        title: t('message.verifyFirst'),
         icon: 'none'
       })
       return
@@ -266,4 +272,4 @@ Page({
       url: '/pages/home/home'
     })
   }
-})
+}))

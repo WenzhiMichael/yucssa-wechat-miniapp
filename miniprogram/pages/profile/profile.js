@@ -1,5 +1,6 @@
+const { localizedPage, t, localizeProfile } = require('../../utils/i18n.js')
 const app = getApp()
-const { supportChannels } = require('../../data/mockData.js')
+const { supportChannels } = require('../../data/localizedData.js').getLocalizedData()
 const { clearProfile, getStoredProfile, isLoggedInProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
@@ -13,25 +14,25 @@ function buildProfileInitial(profile) {
 function buildVerificationView(profile) {
   if (profile.verificationStatus === 'preview') {
     return {
-      badgeText: '体验中',
-      title: '尚未验证 York 邮箱',
-      copy: '当前只用于查看页面，不会发送邮件或建立微信绑定。'
+      badgeText: t('profile.previewBadge'),
+      title: t('profile.previewTitle'),
+      copy: t('profile.previewCopy')
     }
   }
 
   return {
-    badgeText: '已验证',
-    title: 'York 邮箱已通过验证',
-    copy: `已验证邮箱：${profile.verificationEmail}`
+    badgeText: t('profile.verifiedBadge'),
+    title: t('profile.verifiedTitle'),
+    copy: t('profile.verifiedCopy', { email: profile.verificationEmail })
   }
 }
 
-Page({
+Page(localizedPage('profile', {
   data: {
     profile: null,
     profileInitial: 'Y',
     supportChannels,
-    verificationBadgeText: '未验证',
+    verificationBadgeText: t('profile.unverified'),
     verificationTitle: '',
     verificationCopy: ''
   },
@@ -57,9 +58,10 @@ Page({
       return
     }
 
+    const displayProfile = localizeProfile(profile)
     this.setData({
-      profile,
-      profileInitial: buildProfileInitial(profile),
+      profile: displayProfile,
+      profileInitial: buildProfileInitial(displayProfile),
       verificationBadgeText: buildVerificationView(profile).badgeText,
       verificationTitle: buildVerificationView(profile).title,
       verificationCopy: buildVerificationView(profile).copy
@@ -71,7 +73,7 @@ Page({
       data: this.data.profile.memberCode,
       success: () => {
         wx.showToast({
-          title: '会员码已复制',
+          title: t('message.memberCopied'),
           icon: 'none'
         })
       }
@@ -85,7 +87,7 @@ Page({
       data: value,
       success: () => {
         wx.showToast({
-          title: '已复制',
+          title: t('message.copied'),
           icon: 'none'
         })
       }
@@ -94,10 +96,12 @@ Page({
 
   logout() {
     wx.showModal({
-      title: '退出登录？',
+      confirmText: t('common.confirm'),
+      cancelText: t('common.cancel'),
+      title: t('profile.logoutTitle'),
       content: this.data.profile && this.data.profile.verificationStatus === 'preview'
-        ? '退出后返回登录页，可以重新进入体验模式。'
-        : '退出后需要重新验证 York 邮箱才能查看首页。',
+        ? t('profile.logoutPreview')
+        : t('profile.logoutVerified'),
       success: (res) => {
         if (!res.confirm) {
           return
@@ -114,4 +118,4 @@ Page({
       }
     })
   }
-})
+}))

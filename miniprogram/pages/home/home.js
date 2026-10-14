@@ -1,5 +1,7 @@
+const { localizedPage, t, localizeProfile } = require('../../utils/i18n.js')
 const app = getApp()
-const { categories, events } = require('../../data/mockData.js')
+const { getLocalizedData } = require('../../data/localizedData.js')
+const { categories, events, merchants } = getLocalizedData()
 const { getStoredProfile, isLoggedInProfile } = require('../../utils/memberStore.js')
 
 function buildProfileInitial(profile) {
@@ -10,11 +12,12 @@ function buildProfileInitial(profile) {
   return profile.nickName.slice(0, 1).toUpperCase()
 }
 
-Page({
+Page(localizedPage('home', {
   data: {
     profile: null,
     profileInitial: 'Y',
-    walletStatusText: '预留接口',
+    walletStatusText: t('home.comingSoon'),
+    featuredMerchants: merchants.slice(0, 2),
     events: events.slice(0, 3),
     categoryDockItems: []
   },
@@ -43,14 +46,17 @@ Page({
     app.globalData.profile = profile
     app.globalData.isLoggedIn = true
 
+    const displayProfile = localizeProfile(profile)
+    const { categories } = getLocalizedData()
     this.setData({
-      profile,
-      profileInitial: buildProfileInitial(profile),
+      profile: displayProfile,
+      profileInitial: buildProfileInitial(displayProfile),
       categoryDockItems: categories.map((category) => ({
         id: category.id,
         name: category.shortName || category.name,
         label: category.name,
-        accent: category.accent
+        accent: category.accent,
+        surface: category.surface
       }))
     })
   },
@@ -68,6 +74,18 @@ Page({
     })
   },
 
+  openMerchants() {
+    wx.navigateTo({ url: '/pages/merchantList/merchantList' })
+  },
+
+  openMerchant(e) {
+    wx.navigateTo({ url: `/pages/merchantDetail/merchantDetail?id=${e.currentTarget.dataset.id}` })
+  },
+
+  openContact() {
+    wx.navigateTo({ url: '/pages/contact/contact' })
+  },
+
   openProfile() {
     wx.navigateTo({
       url: '/pages/profile/profile'
@@ -79,7 +97,7 @@ Page({
       data: this.data.profile.memberCode,
       success: () => {
         wx.showToast({
-          title: '会员码已复制',
+          title: t('message.memberCopied'),
           icon: 'none'
         })
       }
@@ -88,8 +106,8 @@ Page({
 
   handleWalletPlaceholder() {
     wx.showToast({
-      title: 'Apple Wallet 入口预留中',
+      title: t('message.wallet'),
       icon: 'none'
     })
   }
-})
+}))

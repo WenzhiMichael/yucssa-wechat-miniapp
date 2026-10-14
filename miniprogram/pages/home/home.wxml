@@ -1,77 +1,82 @@
 <view wx:if="{{profile}}" class="page-shell home-page">
-  <view class="hero-shell">
-    <view class="hero-card panel">
-      <view class="hero-ribbon">YUCSSA Campus Hub{{profile.verificationStatus === 'preview' ? ' · 体验模式' : ''}}</view>
+  <view class="language-toolbar"><button class="language-switch" bindtap="toggleLanguage" aria-label="{{ui.common.switchLanguage}}">{{language === 'zh' ? 'English' : '中文'}}</button></view>
+  <view class="home-header">
+    <view>
+      <text class="eyebrow">{{ui.home.eyebrow}}</text>
+      <text class="home-greeting">{{ui.home.greeting}}{{profile.nickName}}</text>
+    </view>
+    <button class="avatar-button" bindtap="openProfile" aria-label="{{ui.home.openProfile}}">
+      <image wx:if="{{profile.avatarUrl}}" class="avatar-image" src="{{profile.avatarUrl}}" mode="aspectFill"></image>
+      <text wx:else class="avatar-fallback">{{profileInitial}}</text>
+    </button>
+  </view>
 
-      <view class="hero-top">
-        <view class="hero-copy-block">
-          <text class="hero-title">欢迎回来，{{profile.nickName}}</text>
-          <text class="hero-subtitle">
-            学生会活动、福利入口和会员身份，现在整合成一个更清晰的首页。
-          </text>
-        </view>
-
-        <button class="avatar-button" bindtap="openProfile">
-          <image
-            wx:if="{{profile.avatarUrl}}"
-            class="avatar-image"
-            src="{{profile.avatarUrl}}"
-            mode="aspectFill"
-          ></image>
-          <text wx:else class="avatar-fallback">{{profileInitial}}</text>
-        </button>
+  <view class="member-card">
+    <text class="card-watermark">YU</text>
+    <view class="member-card-top">
+      <view><text class="member-brand">YUCSSA</text><text class="member-association">{{ui.home.association}}</text></view>
+      <text class="member-status">{{profile.verificationStatus === 'preview' ? ui.home.previewCard : ui.home.verifiedMember}}</text>
+    </view>
+    <view class="member-card-body">
+      <text class="member-card-caption">{{ui.home.caption}}</text>
+      <text class="member-card-title">{{ui.home.title}}</text>
+    </view>
+    <view class="member-card-bottom">
+      <view class="member-block">
+        <text class="member-label">{{profile.verificationStatus === 'preview' ? ui.home.previewCode : ui.home.memberCode}}</text>
+        <text class="member-code">{{profile.memberCode}}</text>
       </view>
-
-      <view class="member-strip">
-        <view class="member-block">
-          <text wx:if="{{profile.verificationStatus === 'preview'}}" class="member-label">预览示例，不可核销优惠</text>
-          <text class="member-code">{{profile.memberCode}}</text>
-        </view>
-        <button class="member-button" bindtap="copyMemberCode">复制</button>
-      </view>
-
-      <view class="wallet-strip">
-        <view class="wallet-copy-block">
-          <text class="wallet-label">Apple Wallet</text>
-          <text class="wallet-status">{{walletStatusText}}</text>
-        </view>
-        <button class="wallet-button" bindtap="handleWalletPlaceholder">去添加</button>
-      </view>
+      <button class="member-button" bindtap="copyMemberCode">{{ui.home.copyCode}}</button>
     </view>
   </view>
 
-  <view class="event-section">
-    <view class="section-head-row">
-      <text class="section-heading">近期活动</text>
-      <button class="text-link" bindtap="openServices">活动页</button>
-    </view>
+  <button class="wallet-strip" bindtap="handleWalletPlaceholder">
+    <view class="wallet-icon"><view></view></view>
+    <text class="wallet-label">{{ui.home.wallet}}</text>
+    <text class="wallet-status">{{walletStatusText}}</text>
+  </button>
 
-    <view class="event-list">
-      <block wx:for="{{events}}" wx:key="id">
-        <view class="event-card panel">
-          <view class="event-date">
-            <text class="event-month">{{item.month}}</text>
-            <text class="event-day">{{item.day}}</text>
-          </view>
-          <view class="event-copy-block">
-            <text class="event-title">{{item.title}}</text>
-            <text class="event-meta">{{item.time}} · {{item.location}}</text>
-            <text class="event-note">{{item.note}}</text>
-          </view>
-          <text class="event-status">{{item.status}}</text>
-        </view>
+  <view class="home-section">
+    <view class="section-head-row"><text class="section-heading">{{ui.home.benefits}}</text><button class="text-link" bindtap="openMerchants">{{ui.home.allMerchants}} <text class="link-arrow">›</text></button></view>
+    <view class="category-grid">
+      <block wx:for="{{categoryDockItems}}" wx:key="id">
+        <button class="category-item" bindtap="openCategoryDock" data-id="{{item.id}}">
+          <view class="category-badge" style="background: {{item.surface}}; color: {{item.accent}};"><text>{{item.name}}</text></view>
+          <text class="category-title">{{item.label}}</text>
+        </button>
+      </block>
+    </view>
+    <view class="featured-list">
+      <block wx:for="{{featuredMerchants}}" wx:key="id">
+        <button class="featured-card panel" bindtap="openMerchant" data-id="{{item.id}}">
+          <view class="featured-logo"><image wx:if="{{item.logo}}" src="{{item.logo}}" mode="aspectFit"></image><text wx:else>{{item.initials}}</text></view>
+          <view class="featured-copy"><text class="featured-name">{{item.name}}</text><text class="featured-offer">{{item.offerTitle}}</text></view>
+          <text class="featured-arrow">›</text>
+        </button>
       </block>
     </view>
   </view>
+
+  <view class="home-section event-section">
+    <view class="section-head-row"><text class="section-heading">{{ui.home.events}}</text><button class="text-link" bindtap="openServices">{{ui.home.schedule}} <text class="link-arrow">›</text></button></view>
+    <text class="section-copy">{{ui.home.eventCopy}}</text>
+    <view class="event-list">
+      <block wx:for="{{events}}" wx:key="id">
+        <button class="event-card panel" bindtap="openServices">
+          <view class="event-date"><text class="event-month">{{item.month}}</text><text class="event-day">{{item.day}}</text></view>
+          <view class="event-copy-block"><view class="event-title-row"><text class="event-title">{{item.title}}</text><text class="event-status">{{item.status}}</text></view><text class="event-meta">{{item.time}} · {{item.location}}</text><text class="event-note">{{item.note}}</text></view>
+        </button>
+      </block>
+    </view>
+  </view>
+
+  <button class="community-strip" bindtap="openContact"><view><text class="community-title">{{ui.home.community}}</text><text class="community-copy">{{ui.home.communityCopy}}</text></view><text class="community-arrow">↗</text></button>
+  <text class="home-footer">{{ui.home.footer}}</text>
 </view>
 
-<view wx:if="{{profile}}" class="category-dock">
-  <block wx:for="{{categoryDockItems}}" wx:key="id">
-    <button class="category-dock-item" bindtap="openCategoryDock" data-id="{{item.id}}">
-      <view class="category-dock-badge" style="background: {{item.accent}};">
-        <text class="category-dock-symbol">{{item.name}}</text>
-      </view>
-      <text class="category-dock-title">{{item.label}}</text>
-    </button>
-  </block>
+<view wx:if="{{profile}}" class="home-dock">
+  <view class="dock-item dock-active"><view class="nav-icon icon-home"></view><text>{{ui.common.home}}</text></view>
+  <button class="dock-item" bindtap="openMerchants"><view class="nav-icon icon-shop"></view><text>{{ui.common.benefits}}</text></button>
+  <button class="dock-item" bindtap="openServices"><view class="nav-icon icon-calendar"></view><text>{{ui.common.events}}</text></button>
+  <button class="dock-item" bindtap="openProfile"><view class="nav-icon icon-member"></view><text>{{ui.common.profile}}</text></button>
 </view>

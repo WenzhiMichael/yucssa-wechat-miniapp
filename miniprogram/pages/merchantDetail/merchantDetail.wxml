@@ -1,4 +1,5 @@
 <view wx:if="{{merchant}}" class="page-shell detail-page">
+  <view class="language-toolbar"><button class="language-switch" bindtap="toggleLanguage" aria-label="{{ui.common.switchLanguage}}">{{language === 'zh' ? 'English' : '中文'}}</button></view>
   <view class="detail-hero panel">
     <view class="detail-badge" style="background: {{merchant.surface}}; color: {{merchant.accent}};">
       <image
@@ -15,36 +16,36 @@
     <text wx:if="{{merchant.description}}" class="detail-description">{{merchant.description}}</text>
 
     <view class="detail-actions">
-      <button class="detail-action primary-action" bindtap="copyOffer">复制优惠</button>
-      <button class="detail-action" bindtap="openMap">打开地图</button>
+      <button class="detail-action primary-action" bindtap="copyOffer">{{ui.detail.copyOffer}}</button>
+      <button class="detail-action" bindtap="openMap">{{ui.detail.map}}</button>
     </view>
   </view>
 
   <view class="offer-card panel">
-    <text class="offer-label">当前学生福利</text>
+    <text class="offer-label">{{ui.detail.offer}}</text>
     <text class="offer-title">{{merchant.offerTitle}}</text>
     <text class="offer-copy">{{merchant.offerDetails}}</text>
   </view>
 
   <view class="info-card panel">
     <view class="info-row">
-      <text class="info-label">地址</text>
+      <text class="info-label">{{ui.detail.address}}</text>
       <text class="info-value">{{merchant.address}}</text>
     </view>
     <view wx:if="{{merchant.phone}}" class="info-divider"></view>
     <view wx:if="{{merchant.phone}}" class="info-row">
-      <text class="info-label">电话</text>
+      <text class="info-label">{{ui.detail.phone}}</text>
       <button class="info-link" bindtap="callMerchant">{{merchant.phone}}</button>
     </view>
     <view class="info-divider"></view>
     <view class="info-row">
-      <text class="info-label">操作</text>
-      <button class="info-link" bindtap="copyAddress">复制地址</button>
+      <text class="info-label">{{ui.detail.actions}}</text>
+      <button class="info-link" bindtap="copyAddress">{{ui.detail.copyAddress}}</button>
     </view>
   </view>
 
   <view wx:if="{{merchant.redemptionSteps.length}}" class="steps-card panel">
-    <text class="steps-title">领取方式</text>
+    <text class="steps-title">{{ui.detail.steps}}</text>
     <block wx:for="{{merchant.redemptionSteps}}" wx:key="*this">
       <view class="step-row">
         <text class="step-index">0{{index + 1}}</text>
@@ -54,7 +55,7 @@
   </view>
 
   <view wx:if="{{merchant.tags.length || merchant.perks.length}}" class="tag-card panel">
-    <text class="steps-title">标签和体验感</text>
+    <text class="steps-title">{{ui.detail.features}}</text>
     <view class="tag-group">
       <block wx:for="{{merchant.tags}}" wx:key="*this">
         <text class="detail-tag">{{item}}</text>
@@ -66,7 +67,7 @@
   </view>
 
   <view wx:if="{{relatedMerchants.length}}" class="related-section">
-    <text class="section-heading">同类推荐</text>
+    <text class="section-heading">{{ui.detail.related}}</text>
     <view class="related-list">
       <block wx:for="{{relatedMerchants}}" wx:key="id">
         <button class="related-card panel" bindtap="openMerchant" data-id="{{item.id}}">

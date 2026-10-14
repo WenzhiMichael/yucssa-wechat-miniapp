@@ -1,6 +1,7 @@
-const { joinOpportunities, supportChannels } = require('../../data/mockData.js')
+const { localizedPage, t } = require('../../utils/i18n.js')
+const { joinOpportunities, supportChannels } = require('../../data/localizedData.js').getLocalizedData()
 
-Page({
+Page(localizedPage('contact', {
   data: {
     joinOpportunities,
     supportChannels
@@ -13,10 +14,10 @@ Page({
       data: value,
       success: () => {
         wx.showToast({
-          title: '已复制',
+          title: t('message.copied'),
           icon: 'none'
         })
       }
     })
   }
-})
+}))

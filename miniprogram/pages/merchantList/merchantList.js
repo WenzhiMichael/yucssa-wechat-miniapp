@@ -1,6 +1,9 @@
-const { categories, merchants } = require('../../data/mockData.js')
+const { localizedPage, t } = require('../../utils/i18n.js')
+const { getLocalizedData } = require('../../data/localizedData.js')
+const { categories } = getLocalizedData()
 
 function buildSections(selectedCategoryId) {
+  const { categories, merchants } = getLocalizedData()
   const visibleCategories = selectedCategoryId === 'all'
     ? categories
     : categories.filter((category) => category.id === selectedCategoryId)
@@ -17,9 +20,11 @@ function buildSections(selectedCategoryId) {
     .filter((section) => section.merchants.length)
 }
 
-Page({
+Page(localizedPage('merchantList', {
   data: {
-    pageTitle: '合作商户',
+    pageTitle: t('nav.merchantList'),
+    categories,
+    selectedCategoryId: 'all',
     sections: []
   },
 
@@ -34,8 +39,9 @@ Page({
 
   refreshPageData() {
     const sections = buildSections(this.selectedCategoryId)
+    const { categories } = getLocalizedData()
     const currentCategory = categories.find((category) => category.id === this.selectedCategoryId)
-    const pageTitle = currentCategory ? currentCategory.name : '合作商户'
+    const pageTitle = currentCategory ? currentCategory.name : t('nav.merchantList')
 
     wx.setNavigationBarTitle({
       title: pageTitle
@@ -43,8 +49,14 @@ Page({
 
     this.setData({
       pageTitle,
+      selectedCategoryId: this.selectedCategoryId,
       sections
     })
+  },
+
+  selectCategory(e) {
+    this.selectedCategoryId = e.currentTarget.dataset.id
+    this.refreshPageData()
   },
 
   openMerchant(e) {
@@ -53,4 +65,4 @@ Page({
       url: `/pages/merchantDetail/merchantDetail?id=${merchantId}`
     })
   }
-})
+}))

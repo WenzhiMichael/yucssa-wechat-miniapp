@@ -1,10 +1,11 @@
-const { merchants } = require('../../data/mockData.js')
+const { localizedPage, t } = require('../../utils/i18n.js')
+const { getLocalizedData } = require('../../data/localizedData.js')
 
 function findMerchantById(merchantId) {
-  return merchants.find((merchant) => merchant.id === merchantId)
+  return getLocalizedData().merchants.find((merchant) => merchant.id === merchantId)
 }
 
-Page({
+Page(localizedPage('merchantDetail', {
   data: {
     merchant: null,
     relatedMerchants: []
@@ -24,12 +25,13 @@ Page({
 
     if (!merchant) {
       wx.showToast({
-        title: '商家不存在',
+        title: t('message.merchantMissing'),
         icon: 'none'
       })
       return
     }
 
+    const { merchants } = getLocalizedData()
     const relatedMerchants = merchants
       .filter((item) => item.categoryId === merchant.categoryId && item.id !== merchant.id)
       .slice(0, 2)
@@ -49,7 +51,7 @@ Page({
       data: this.data.merchant.offerDetails,
       success: () => {
         wx.showToast({
-          title: '优惠说明已复制',
+          title: t('message.offerCopied'),
           icon: 'none'
         })
       }
@@ -61,7 +63,7 @@ Page({
       data: this.data.merchant.address,
       success: () => {
         wx.showToast({
-          title: '地址已复制',
+          title: t('message.addressCopied'),
           icon: 'none'
         })
       }
@@ -71,7 +73,7 @@ Page({
   callMerchant() {
     if (!this.data.merchant.phone) {
       wx.showToast({
-        title: '电话待补充',
+        title: t('message.phoneMissing'),
         icon: 'none'
       })
       return
@@ -88,7 +90,7 @@ Page({
       typeof this.data.merchant.longitude !== 'number'
     ) {
       wx.showToast({
-        title: '地图坐标待补充',
+        title: t('message.mapMissing'),
         icon: 'none'
       })
       return
@@ -118,4 +120,4 @@ Page({
       path: `/pages/merchantDetail/merchantDetail?id=${merchant.id}`
     }
   }
-})
+}))

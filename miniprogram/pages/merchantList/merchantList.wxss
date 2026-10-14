@@ -1,111 +1,23 @@
-.merchant-page {
-  min-height: 100vh;
-  padding: 20rpx 0 40rpx;
-  background: #ffffff;
-}
-
-.merchant-section {
-  margin-top: 18rpx;
-  padding: 0 0 20rpx;
-  border-top: 1rpx solid #f1f1f1;
-}
-
-.section-title-row {
-  display: flex;
-  align-items: center;
-  padding: 24rpx 28rpx 18rpx;
-}
-
-.section-title-bar {
-  width: 6rpx;
-  height: 34rpx;
-  border-radius: 999rpx;
-  background: #16c4c9;
-  margin-right: 16rpx;
-}
-
-.section-title {
-  font-size: 42rpx;
-  font-weight: 700;
-  color: #12bfc3;
-}
-
-.merchant-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 36rpx;
-  column-gap: 8rpx;
-  padding: 24rpx 16rpx 0;
-}
-
-.merchant-grid-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 250rpx;
-  padding: 0 10rpx;
-  background: transparent;
-}
-
-.merchant-logo-shell {
-  width: 150rpx;
-  height: 150rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.merchant-logo-circle {
-  width: 136rpx;
-  height: 136rpx;
-  border-radius: 50%;
-  border: 2rpx solid currentColor;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f6f6f6;
-}
-
-.merchant-logo-text {
-  font-size: 42rpx;
-  font-weight: 800;
-  letter-spacing: 2rpx;
-}
-
-.merchant-logo-image {
-  width: 92rpx;
-  height: 92rpx;
-}
-
-.merchant-grid-name {
-  display: -webkit-box;
-  margin-top: 18rpx;
-  font-size: 28rpx;
-  line-height: 1.4;
-  color: #111111;
-  text-align: center;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.empty-state {
-  padding: 120rpx 40rpx;
-  text-align: center;
-}
-
-.empty-title {
-  display: block;
-  font-size: 34rpx;
-  font-weight: 700;
-  color: #1f1f1f;
-}
-
-.empty-copy {
-  display: block;
-  margin-top: 18rpx;
-  font-size: 26rpx;
-  line-height: 1.6;
-  color: #6d6d6d;
-}
+.directory-header { padding: 8rpx 0 28rpx; }
+.directory-title { display: block; margin-top: 12rpx; font-size: 40rpx; font-weight: 700; line-height: 1.4; }
+.category-filters { display: flex; gap: 12rpx; flex-wrap: wrap; padding-bottom: 8rpx; }
+.filter-chip { padding: 16rpx 24rpx; border: 1rpx solid #e9e1e4; border-radius: 14rpx; background: #fff; color: #82777c; font-size: 23rpx; }
+.filter-active { border-color: #821e3c; background: #821e3c; color: #fff; font-weight: 600; }
+.merchant-section { margin-top: 26rpx; }
+.section-title-row { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: center; margin-bottom: 18rpx; }
+.section-title { font-size: 32rpx; font-weight: 700; }
+.section-title-count { font-size: 21rpx; color: #94878e; }
+.merchant-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18rpx; }
+.merchant-grid-item { min-width: 0; padding: 24rpx; border: 1rpx solid #ece7e8; border-radius: 24rpx; background: #fff; text-align: left; display: flex; flex-direction: column; align-items: stretch; }
+.merchant-logo-shell { display: flex; align-items: center; height: 92rpx; margin-bottom: 18rpx; }
+.merchant-logo-circle { width: 88rpx; height: 88rpx; border: 1rpx solid #f0e9eb; border-radius: 18rpx; display: flex; align-items: center; justify-content: center; background: #fff; }
+.merchant-logo-image { width: 70rpx; height: 70rpx; }
+.merchant-logo-text { font-size: 32rpx; font-weight: 700; }
+.merchant-grid-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 26rpx; line-height: 1.5; font-weight: 600; min-height: 78rpx; }
+.merchant-offer { display: flex; align-items: center; margin-top: 16rpx; padding: 11rpx 12rpx; background: #f7edf0; border-radius: 10rpx; color: #821e3c; font-size: 22rpx; font-weight: 600; min-height: 80rpx; }
+.merchant-offer text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.merchant-card-link { display: flex; justify-content: space-between; width: 100%; margin-top: 20rpx; padding-top: 16rpx; border-top: 1rpx solid #f1ecee; font-size: 21rpx; color: #82777c; }
+.merchant-card-link text { font-size: 25rpx; color: #821e3c; }
+.empty-state { padding: 100rpx 24rpx; text-align: center; }
+.empty-title { display: block; font-size: 32rpx; font-weight: 600; }
+.empty-copy { display: block; margin-top: 16rpx; font-size: 24rpx; line-height: 1.6; color: #82777c; }

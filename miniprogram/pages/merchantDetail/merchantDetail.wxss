@@ -1,12 +1,10 @@
 .detail-page {
-  background:
-    radial-gradient(circle at top right, rgba(140, 31, 36, 0.09), transparent 24%),
-    linear-gradient(180deg, #f3ece3 0%, #f8f4ed 100%);
+  background: #f7f5f2;
 }
 
 .detail-hero {
   padding: 34rpx 28rpx;
-  background: linear-gradient(145deg, #fff9f2, #f8eee4);
+  background: #fff;
 }
 
 .detail-badge {
@@ -28,10 +26,10 @@
 .detail-name {
   display: block;
   margin-top: 24rpx;
-  font-family: "Times New Roman", "Songti SC", serif;
-  font-size: 56rpx;
+  font-family: inherit;
+  font-size: 44rpx;
   font-weight: 700;
-  color: #251914;
+  color: #292326;
 }
 
 .detail-meta,
@@ -40,7 +38,7 @@
   margin-top: 16rpx;
   font-size: 25rpx;
   line-height: 1.7;
-  color: #6f635a;
+  color: #82777c;
 }
 
 .detail-actions {
@@ -52,15 +50,15 @@
 
 .detail-action {
   padding: 18rpx 22rpx;
-  border-radius: 999rpx;
-  background: #efe3d8;
-  color: #7b1d20;
+  border-radius: 12rpx;
+  background: #f6e9ed;
+  color: #821e3c;
   font-size: 23rpx;
   font-weight: 700;
 }
 
 .primary-action {
-  background: #7b1d20;
+  background: #821e3c;
   color: #fff9f2;
 }
 
@@ -75,9 +73,9 @@
 .offer-label {
   display: inline-block;
   padding: 10rpx 14rpx;
-  border-radius: 999rpx;
-  background: rgba(123, 29, 32, 0.08);
-  color: #7b1d20;
+  border-radius: 12rpx;
+  background: #f7edf0;
+  color: #821e3c;
   font-size: 21rpx;
   font-weight: 700;
 }
@@ -87,7 +85,7 @@
   margin-top: 20rpx;
   font-size: 34rpx;
   font-weight: 700;
-  color: #261914;
+  color: #292326;
 }
 
 .offer-copy {
@@ -95,7 +93,7 @@
   margin-top: 14rpx;
   font-size: 25rpx;
   line-height: 1.75;
-  color: #6f6259;
+  color: #82777c;
 }
 
 .info-row {
@@ -108,7 +106,7 @@
 .info-label {
   min-width: 88rpx;
   font-size: 23rpx;
-  color: #7c6f65;
+  color: #82777c;
 }
 
 .info-value,
@@ -117,11 +115,11 @@
   text-align: right;
   font-size: 25rpx;
   line-height: 1.7;
-  color: #241813;
+  color: #292326;
 }
 
 .info-link {
-  color: #7b1d20;
+  color: #821e3c;
   font-weight: 700;
 }
 
@@ -135,7 +133,7 @@
   display: block;
   font-size: 32rpx;
   font-weight: 700;
-  color: #241813;
+  color: #292326;
 }
 
 .step-row {
@@ -148,14 +146,14 @@
   width: 74rpx;
   font-size: 28rpx;
   font-weight: 800;
-  color: #7b1d20;
+  color: #821e3c;
 }
 
 .step-copy {
   flex: 1;
   font-size: 24rpx;
   line-height: 1.7;
-  color: #6f635a;
+  color: #82777c;
 }
 
 .tag-group {
@@ -167,16 +165,16 @@
 
 .detail-tag {
   padding: 10rpx 16rpx;
-  border-radius: 999rpx;
-  background: rgba(123, 29, 32, 0.08);
-  color: #7b1d20;
+  border-radius: 12rpx;
+  background: #f7edf0;
+  color: #821e3c;
   font-size: 21rpx;
   font-weight: 700;
 }
 
 .detail-tag-secondary {
-  background: rgba(51, 74, 138, 0.08);
-  color: #334a8a;
+  background: #f7edf0;
+  color: #821e3c;
 }
 
 .related-section {
@@ -222,12 +220,20 @@
   display: block;
   font-size: 28rpx;
   font-weight: 700;
-  color: #241813;
+  color: #292326;
 }
 
 .related-copy {
   display: block;
   margin-top: 10rpx;
   font-size: 23rpx;
-  color: #6f6259;
+  color: #82777c;
 }
+
+.detail-name { font-size: 40rpx; line-height: 1.4; word-break: break-word; }
+.offer-card { position: relative; overflow: hidden; background: #fcf6f8; border: 1rpx dashed #d9b6c2; box-shadow: none; }
+.offer-label { padding: 0; background: transparent; font-size: 20rpx; letter-spacing: 1rpx; }
+.offer-title { font-size: 40rpx; color: #821e3c; }
+.detail-badge, .related-mark { flex-shrink: 0; }
+.related-copy-block { min-width: 0; }
+.info-value { word-break: break-word; }

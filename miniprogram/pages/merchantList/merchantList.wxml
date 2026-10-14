@@ -1,9 +1,19 @@
-<view class="merchant-page">
+<view class="page-shell merchant-page">
+  <view class="language-toolbar"><button class="language-switch" bindtap="toggleLanguage" aria-label="{{ui.common.switchLanguage}}">{{language === 'zh' ? 'English' : '中文'}}</button></view>
+  <view class="directory-header">
+    <text class="eyebrow">{{ui.merchants.eyebrow}}</text>
+    <text class="directory-title">{{ui.merchants.title}}</text>
+    <text class="section-copy">{{ui.merchants.copy}}</text>
+  </view>
+  <view class="category-filters">
+    <button class="filter-chip {{selectedCategoryId === 'all' ? 'filter-active' : ''}}" data-id="all" bindtap="selectCategory">{{ui.common.all}}</button>
+    <block wx:for="{{categories}}" wx:key="id"><button class="filter-chip {{selectedCategoryId === item.id ? 'filter-active' : ''}}" data-id="{{item.id}}" bindtap="selectCategory">{{item.name}}</button></block>
+  </view>
   <block wx:if="{{sections.length}}">
     <block wx:for="{{sections}}" wx:key="id">
       <view class="merchant-section">
         <view class="section-title-row">
-          <view class="section-title-bar"></view>
+          <text class="section-title-count">{{item.merchants.length}} {{ui.merchants.count}}</text>
           <text class="section-title">{{item.name}}</text>
         </view>
 
@@ -13,7 +23,7 @@
               <view class="merchant-logo-shell">
                 <view
                   class="merchant-logo-circle"
-                  style="background: {{merchant.surface}}; color: {{merchant.accent}}; border-color: {{merchant.accent}};"
+                  style="color: {{merchant.accent}};"
                 >
                   <image
                     wx:if="{{merchant.logo}}"
@@ -25,6 +35,8 @@
                 </view>
               </view>
               <text class="merchant-grid-name">{{merchant.name}}</text>
+              <view class="merchant-offer"><text>{{merchant.offerTitle}}</text></view>
+              <text class="merchant-card-link">{{ui.merchants.viewOffer}} <text>↗</text></text>
             </button>
           </block>
         </view>
@@ -33,7 +45,7 @@
   </block>
 
   <view wx:else class="empty-state">
-    <text class="empty-title">暂时没有合作商户</text>
-    <text class="empty-copy">这个分类还没有录入商户信息，后面可以继续补充。</text>
+    <text class="empty-title">{{ui.merchants.emptyTitle}}</text>
+    <text class="empty-copy">{{ui.merchants.emptyCopy}}</text>
   </view>
 </view>

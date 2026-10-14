@@ -1,11 +1,12 @@
+const { localizedPage, t } = require('../../utils/i18n.js')
 const {
   announcements,
   events,
   serviceCards,
   supportChannels
-} = require('../../data/mockData.js')
+} = require('../../data/localizedData.js').getLocalizedData()
 
-Page({
+Page(localizedPage('services', {
   data: {
     announcements,
     events,
@@ -26,10 +27,10 @@ Page({
       data: value,
       success: () => {
         wx.showToast({
-          title: '联系方式已复制',
+          title: t('message.contactCopied'),
           icon: 'none'
         })
       }
     })
   }
-})
+}))
